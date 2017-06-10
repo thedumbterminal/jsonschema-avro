@@ -10,10 +10,12 @@ const typeMapping = {
 }
 
 jsonSchemaAvro.convert = (jsonSchema) => {
-	if(jsonSchemaAvro._isComplex(jsonSchema)){
-		return jsonSchemaAvro._convertComplexProperty('main', jsonSchema.properties, {doc: jsonSchema.description})
+	return {
+		name: 'main',
+		type: 'record',
+		doc: jsonSchema.description,
+		fields: jsonSchemaAvro._convertProperties(jsonSchema.properties)
 	}
-	return jsonSchemaAvro._convertProperties(jsonSchema)
 }
 
 jsonSchemaAvro._isComplex = (schema) => {
@@ -29,14 +31,14 @@ jsonSchemaAvro._convertProperties = (schema) => {
 	})
 }
 
-jsonSchemaAvro._convertComplexProperty = (name, contents, options = {}) => {
+jsonSchemaAvro._convertComplexProperty = (name, contents) => {
 	const complex = {
 		name: name,
-		type: 'record',
-		fields: jsonSchemaAvro.convert(contents)
-	}
-	if(options.doc){
-		complex.doc = options.doc
+		type: {
+			type: 'record',
+			name: `${name}_record`,
+			fields: jsonSchemaAvro._convertProperties(contents)
+		} 
 	}
 	return complex
 }

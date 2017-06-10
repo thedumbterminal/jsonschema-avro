@@ -25,17 +25,20 @@ describe('index', () => {
 					},
 					{
 						"name": "address",
-						"type": "record",
-						"fields": [
-							{
-								"name": "street_address",
-								"type": "string"
-							},
-							{
-								"name": "country",
-								"type": "string"
-							}
-						]
+						"type": {
+							"type": "record",
+							"name": "address_record",
+							"fields": [
+								{
+									"name": "street_address",
+									"type": "string"
+								},
+								{
+									"name": "country",
+									"type": "string"
+								}
+							]
+						}
 					}
 				]
 			}
