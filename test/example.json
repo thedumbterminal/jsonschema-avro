@@ -1,0 +1,23 @@
+{
+	"description": "Example description",
+	"type": "object",
+	"properties": {
+		"first_name": {
+			"type": "string"
+		},
+		"last_name": {
+			"type": "string"
+		},
+		"address": {
+			"type": "object",
+			"properties": {
+				"street_address": {
+					"type": "string"
+				},
+				"country": {
+					"type" : "string"
+				}
+			}
+		}
+	}
+}

@@ -10,6 +10,9 @@ const typeMapping = {
 }
 
 jsonSchemaAvro.convert = (jsonSchema) => {
+	if(!jsonSchema){
+		throw new Error('No schema given')
+	}
 	return {
 		name: 'main',
 		type: 'record',
