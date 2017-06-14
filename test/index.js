@@ -24,6 +24,17 @@ describe('index', () => {
 						"type": "string"
 					},
 					{
+						"name": "gender",
+						"type": {
+							"name": "gender_enum",
+							"symbols": [
+								"Male",
+								"Female"
+							],
+							"type": "enum"
+						}
+					},
+					{
 						"name": "address",
 						"type": {
 							"type": "record",

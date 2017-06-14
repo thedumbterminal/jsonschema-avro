@@ -8,6 +8,13 @@
 		"last_name": {
 			"type": "string"
 		},
+		"gender": {
+			"type": "string",
+			"enum": [
+				"Male",
+				"Female"
+			]
+		},
 		"address": {
 			"type": "object",
 			"properties": {

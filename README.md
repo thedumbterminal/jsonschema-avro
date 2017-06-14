@@ -1,5 +1,6 @@
 # jsonschema-avro
 
+[![npm](https://img.shields.io/npm/v/jsonschema-avro.svg)]()
 [![Build Status](https://travis-ci.org/thedumbterminal/jsonschema-avro.svg?branch=master)](https://travis-ci.org/thedumbterminal/jsonschema-avro)
 
 Converts JSON-schema definitions into Avro definitions.
@@ -36,4 +37,3 @@ Converts JSON-schema definitions into Avro definitions.
 
 * Handle references.
 * Handle `anyOf` and `allOf`.
-* Handle `Enum` type.
