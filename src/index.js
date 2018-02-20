@@ -32,7 +32,7 @@ jsonSchemaAvro._hasEnum = (schema) => {
 jsonSchemaAvro._convertProperties = (schema) => {
 	return Object.keys(schema).map((item) => {
 		if(jsonSchemaAvro._isComplex(schema[item])){
-			return jsonSchemaAvro._convertComplexProperty(item, schema[item].properties)
+			return jsonSchemaAvro._convertComplexProperty(item, schema[item])
 		}
 		else if(jsonSchemaAvro._hasEnum(schema[item])){
 			return jsonSchemaAvro._convertEnumProperty(item, schema[item])
@@ -44,10 +44,11 @@ jsonSchemaAvro._convertProperties = (schema) => {
 jsonSchemaAvro._convertComplexProperty = (name, contents) => {
 	return {
 		name: name,
+		doc: contents.description || '',
 		type: {
 			type: 'record',
 			name: `${name}_record`,
-			fields: jsonSchemaAvro._convertProperties(contents)
+			fields: jsonSchemaAvro._convertProperties(contents.properties)
 		} 
 	}
 }
@@ -55,6 +56,7 @@ jsonSchemaAvro._convertComplexProperty = (name, contents) => {
 jsonSchemaAvro._convertEnumProperty = (name, contents) => {
 	return {
 		name: name,
+		doc: contents.description || '',
 		type: {
 			type: 'enum',
 			name: `${name}_enum`,
@@ -66,6 +68,7 @@ jsonSchemaAvro._convertEnumProperty = (name, contents) => {
 jsonSchemaAvro._convertProperty = (name, value) => {
 	return {
 		name: name,
+		doc: value.description || '',
 		type: typeMapping[value.type]
 	}
 }
