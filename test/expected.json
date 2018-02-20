@@ -1,0 +1,49 @@
+{
+	"name": "main",
+	"type": "record",
+	"doc": "Example description",
+	"fields": [
+		{
+			"doc": "the first name",
+			"name": "first_name",
+			"type": "string"
+		},
+		{
+			"doc": "the last name",
+			"name": "last_name",
+			"type": "string"
+		},
+		{
+			"doc": "the gender",
+			"name": "gender",
+			"type": {
+				"name": "gender_enum",
+				"symbols": [
+					"Male",
+					"Female"
+				],
+				"type": "enum"
+			}
+		},
+		{
+			"doc": "the address",
+			"name": "address",
+			"type": {
+				"type": "record",
+				"name": "address_record",
+				"fields": [
+					{
+						"doc": "the street address",
+						"name": "street_address",
+						"type": "string"
+					},
+					{
+						"doc": "the country",
+						"name": "country",
+						"type": "string"
+					}
+				]
+			}
+		}
+	]
+}

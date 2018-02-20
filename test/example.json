@@ -3,12 +3,15 @@
 	"type": "object",
 	"properties": {
 		"first_name": {
+			"description": "the first name",
 			"type": "string"
 		},
 		"last_name": {
+			"description": "the last name",
 			"type": "string"
 		},
 		"gender": {
+			"description": "the gender",
 			"type": "string",
 			"enum": [
 				"Male",
@@ -16,12 +19,15 @@
 			]
 		},
 		"address": {
+			"description": "the address",
 			"type": "object",
 			"properties": {
 				"street_address": {
+					"description": "the street address",
 					"type": "string"
 				},
 				"country": {
+					"description": "the country",
 					"type" : "string"
 				}
 			}

@@ -29,11 +29,12 @@ Converts JSON-schema definitions into Avro definitions.
     
     const avro = jsonSchemaAvro.convert(inJson)
 
+Please ensure that the input JSON schema is dereferenced so that all external references have been resolved. [json-schema-ref-parser](https://www.npmjs.com/package/json-schema-ref-parser) can do this, prior to using this module.
+
 ## Test
 
     npm test
 
 ## TODO
 
-* Handle references.
 * Handle `anyOf` and `allOf`.
