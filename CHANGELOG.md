@@ -2,7 +2,8 @@
 
 ## v1.3.0 (23/02/2018)
 
-* Now supports namespaces.
+* Supports namespaces.
+* Supports default values.
 
 ## v1.2.0 (20/02/2018)
 

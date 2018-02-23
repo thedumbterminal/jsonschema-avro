@@ -59,7 +59,7 @@ jsonSchemaAvro._convertComplexProperty = (name, contents) => {
 }
 
 jsonSchemaAvro._convertEnumProperty = (name, contents) => {
-	return {
+	let prop = {
 		name: name,
 		doc: contents.description || '',
 		type: {
@@ -68,12 +68,20 @@ jsonSchemaAvro._convertEnumProperty = (name, contents) => {
 			symbols: contents.enum
 		}
 	}
+	if(contents.default){
+		prop.default = contents.default
+	}
+	return prop
 }
 
 jsonSchemaAvro._convertProperty = (name, value) => {
-	return {
+	let prop = {
 		name: name,
 		doc: value.description || '',
 		type: typeMapping[value.type]
 	}
+	if(value.default){
+		prop.default = value.default
+	}
+	return prop
 }
