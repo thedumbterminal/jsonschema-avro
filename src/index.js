@@ -68,7 +68,7 @@ jsonSchemaAvro._convertEnumProperty = (name, contents) => {
 			symbols: contents.enum
 		}
 	}
-	if(contents.default){
+	if(contents.hasOwnProperty('default')){
 		prop.default = contents.default
 	}
 	return prop
@@ -80,7 +80,7 @@ jsonSchemaAvro._convertProperty = (name, value) => {
 		doc: value.description || '',
 		type: typeMapping[value.type]
 	}
-	if(value.default){
+	if(value.hasOwnProperty('default')){
 		prop.default = value.default
 	}
 	return prop
