@@ -1,4 +1,5 @@
 {
+	"id": "http://yourdomain.com/schemas/myschema.json",
 	"description": "Enum example",
 	"type": "object",
 	"properties": {
