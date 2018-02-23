@@ -1,0 +1,15 @@
+{
+	"id": "http://yourdomain.com/schemas/myschema.json",
+	"description": "Example description",
+	"type": "object",
+	"properties": {
+		"age": {
+			"description": "the age",
+			"type": [
+				"number",
+				"integer",
+				"null"
+			]
+		}
+	}
+}

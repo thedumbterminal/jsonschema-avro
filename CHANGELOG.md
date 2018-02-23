@@ -4,6 +4,7 @@
 
 * Supports namespaces.
 * Supports default values.
+* Supports fields with multiple types.
 
 ## v1.2.0 (20/02/2018)
 

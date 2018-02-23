@@ -77,11 +77,16 @@ jsonSchemaAvro._convertEnumProperty = (name, contents) => {
 jsonSchemaAvro._convertProperty = (name, value) => {
 	let prop = {
 		name: name,
-		doc: value.description || '',
-		type: typeMapping[value.type]
+		doc: value.description || ''
 	}
 	if(value.hasOwnProperty('default')){
 		prop.default = value.default
+	}
+	if(Array.isArray(value.type)){
+		prop.type = value.type.map(type => typeMapping[type])
+	}
+	else{
+		prop.type = typeMapping[value.type]
 	}
 	return prop
 }
