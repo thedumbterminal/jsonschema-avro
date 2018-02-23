@@ -1,4 +1,5 @@
 {
+	"namespace": "http.yourdomain.com.schemas.myschema.json",
 	"name": "main",
 	"type": "record",
 	"doc": "Complex example",

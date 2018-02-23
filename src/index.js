@@ -14,11 +14,16 @@ jsonSchemaAvro.convert = (jsonSchema) => {
 		throw new Error('No schema given')
 	}
 	return {
+		namespace: jsonSchemaAvro._convertId(jsonSchema.id),
 		name: 'main',
 		type: 'record',
 		doc: jsonSchema.description,
 		fields: jsonSchema.properties ? jsonSchemaAvro._convertProperties(jsonSchema.properties) : []
 	}
+}
+
+jsonSchemaAvro._convertId = (id) => {
+	return id ? id.replace(/([^a-z0-9]+)/ig, '.') : id
 }
 
 jsonSchemaAvro._isComplex = (schema) => {
