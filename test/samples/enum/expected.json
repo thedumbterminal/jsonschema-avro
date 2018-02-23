@@ -1,0 +1,19 @@
+{
+	"name": "main",
+	"type": "record",
+	"doc": "Enum example",
+	"fields": [
+		{
+			"doc": "the gender",
+			"name": "gender",
+			"type": {
+				"name": "gender_enum",
+				"symbols": [
+					"Male",
+					"Female"
+				],
+				"type": "enum"
+			}
+		}
+	]
+}
