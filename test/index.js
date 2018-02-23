@@ -1,20 +1,31 @@
 const jsonSchemaAvro = require('../src/index')
-const inJson = require('./example.json')
-const expected = require('./expected.json')
 const assert = require('assert')
+const fs = require('fs')
 
 describe('index', () => {
 
 	describe('convert()', () => {
-		let result
+		const sampleDir = './test/samples'
+		const testDirs = fs.readdirSync(sampleDir)
 
-		before(() => {
-			result = jsonSchemaAvro.convert(inJson)
+		testDirs.forEach(dir => {
+
+			describe(dir, () => {
+				const inJson = require(`../${sampleDir}/${dir}/input.json`)
+				const expected = require(`../${sampleDir}/${dir}/expected.json`)
+				let result
+
+				before(() => {
+					result = jsonSchemaAvro.convert(inJson)
+				})
+
+				it('converts to avro', () => {
+					//console.log(JSON.stringify(result, null, 2))
+					assert.deepEqual(result, expected)
+				})
+			})
+			
 		})
 
-		it('converts to avro', () => {
-			//console.log(JSON.stringify(result, null, 2))
-			assert.deepEqual(result, expected)
-		})
 	})
 })

@@ -1,23 +1,7 @@
 {
-	"description": "Example description",
+	"description": "Complex example",
 	"type": "object",
 	"properties": {
-		"first_name": {
-			"description": "the first name",
-			"type": "string"
-		},
-		"last_name": {
-			"description": "the last name",
-			"type": "string"
-		},
-		"gender": {
-			"description": "the gender",
-			"type": "string",
-			"enum": [
-				"Male",
-				"Female"
-			]
-		},
 		"address": {
 			"description": "the address",
 			"type": "object",

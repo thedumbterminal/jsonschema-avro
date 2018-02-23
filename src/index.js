@@ -17,7 +17,7 @@ jsonSchemaAvro.convert = (jsonSchema) => {
 		name: 'main',
 		type: 'record',
 		doc: jsonSchema.description,
-		fields: jsonSchemaAvro._convertProperties(jsonSchema.properties)
+		fields: jsonSchema.properties ? jsonSchemaAvro._convertProperties(jsonSchema.properties) : []
 	}
 }
 

@@ -1,0 +1,14 @@
+{
+	"description": "Enum example",
+	"type": "object",
+	"properties": {
+		"gender": {
+			"description": "the gender",
+			"type": "string",
+			"enum": [
+				"Male",
+				"Female"
+			]
+		}
+	}
+}
