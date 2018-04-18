@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.3.1 (18/04/2018)
+
+* Allows object properties to be omitted.
+
 ## v1.3.0 (23/02/2018)
 
 * Supports namespaces.
