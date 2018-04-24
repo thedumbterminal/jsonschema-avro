@@ -1,0 +1,17 @@
+{
+  "namespace": "http.yourdomain.com.schemas.myschema.json",
+  "name": "main",
+  "type": "record",
+  "doc": "Example description",
+  "fields": [
+    {
+      "name": "body",
+      "doc": "",
+      "type": {
+        "type": "record",
+        "name": "body_record",
+        "fields": []
+      }
+    }
+  ]
+}

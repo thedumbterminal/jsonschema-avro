@@ -53,7 +53,7 @@ jsonSchemaAvro._convertComplexProperty = (name, contents) => {
 		type: {
 			type: 'record',
 			name: `${name}_record`,
-			fields: jsonSchemaAvro._convertProperties(contents.properties)
+			fields: jsonSchemaAvro._convertProperties(contents.properties || {})
 		} 
 	}
 }
