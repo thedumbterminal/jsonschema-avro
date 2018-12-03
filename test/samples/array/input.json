@@ -1,0 +1,15 @@
+{
+	"id": "http://yourdomain.com/schemas/myschema.json",
+	"description": "Array example",
+	"type": "object",
+	"properties": {
+		"list": {
+			"description": "example array",
+			"type": "array",
+			"items": {
+				"description": "a string",
+				"type": "string"
+			}
+		}
+	}
+}

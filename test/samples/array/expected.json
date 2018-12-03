@@ -1,0 +1,20 @@
+{
+  "doc": "Array example",
+  "fields": [
+    {
+      "doc": "example array",
+      "name": "list",
+      "type": {
+        "items": {
+          "doc": "a string",
+          "name": "list",
+          "type": "string"
+        },
+        "type": "array"
+      }
+    }
+  ],
+  "name": "main",
+  "namespace": "http.yourdomain.com.schemas.myschema.json",
+  "type": "record"
+}

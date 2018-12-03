@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.4.0 (03/12/2018)
+
+* Array elements now supported. (pdanpdan)
+
 ## v1.3.1 (18/04/2018)
 
 * Allows object properties to be omitted.
