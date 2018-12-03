@@ -9,6 +9,8 @@ const typeMapping = {
 	'number': 'float'
 }
 
+const symbolRe = /^[A-Za-z_][A-Za-z0-9_]*$/;
+
 jsonSchemaAvro.convert = (jsonSchema) => {
 	if(!jsonSchema){
 		throw new Error('No schema given')
@@ -83,14 +85,15 @@ jsonSchemaAvro._convertArrayProperty = (name, contents) => {
 }
 
 jsonSchemaAvro._convertEnumProperty = (name, contents) => {
+	const valid = contents.enum.every((symbol) => symbolRe.test(symbol))
 	let prop = {
 		name: name,
 		doc: contents.description || '',
-		type: {
+		type: valid ? {
 			type: 'enum',
 			name: `${name}_enum`,
 			symbols: contents.enum
-		}
+		} : 'string'
 	}
 	if(contents.hasOwnProperty('default')){
 		prop.default = contents.default
