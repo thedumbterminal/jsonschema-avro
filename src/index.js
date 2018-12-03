@@ -30,6 +30,10 @@ jsonSchemaAvro._isComplex = (schema) => {
 	return schema.type === 'object'
 }
 
+jsonSchemaAvro._isArray = (schema) => {
+	return schema.type === 'array'
+}
+
 jsonSchemaAvro._hasEnum = (schema) => {
 	return Boolean(schema.enum)
 }
@@ -38,6 +42,9 @@ jsonSchemaAvro._convertProperties = (schema) => {
 	return Object.keys(schema).map((item) => {
 		if(jsonSchemaAvro._isComplex(schema[item])){
 			return jsonSchemaAvro._convertComplexProperty(item, schema[item])
+		}
+		else if (jsonSchemaAvro._isArray(schema[item])) {
+			return jsonSchemaAvro._convertArrayProperty(item, schema[item])
 		}
 		else if(jsonSchemaAvro._hasEnum(schema[item])){
 			return jsonSchemaAvro._convertEnumProperty(item, schema[item])
@@ -54,7 +61,24 @@ jsonSchemaAvro._convertComplexProperty = (name, contents) => {
 			type: 'record',
 			name: `${name}_record`,
 			fields: jsonSchemaAvro._convertProperties(contents.properties || {})
-		} 
+		}
+	}
+}
+
+jsonSchemaAvro._convertArrayProperty = (name, contents) => {
+	return {
+		name: name,
+		doc: contents.description || '',
+		type: {
+			type: 'array',
+			items: jsonSchemaAvro._isComplex(contents.items)
+				? {
+					type: 'record',
+					name: `${name}_record`,
+					fields: jsonSchemaAvro._convertProperties(contents.items.properties || {})
+				}
+				: jsonSchemaAvro._convertProperty(name, contents.items)
+		}
 	}
 }
 
