@@ -15,8 +15,8 @@ describe('index', () => {
 				const expected = require(`../${sampleDir}/${dir}/expected.json`)
 				let result
 
-				before(async () => {
-					result = await jsonSchemaAvro.convert(inJson);
+				before(() => {
+					result = jsonSchemaAvro.convert(inJson);
 				})
 
 				it('converts to avro', () => {

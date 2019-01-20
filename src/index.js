@@ -1,11 +1,3 @@
-let $RefParser;
-try {
-	$RefParser = require('json-schema-ref-parser');
-}
-catch(e) { 
-	$RefParser = null;
-}
-
 const jsonSchemaAvro = module.exports = {}
 
 // Json schema on the left, avro on the right
@@ -20,20 +12,11 @@ const typeMapping = {
 
 const reSymbol = /^[A-Za-z_][A-Za-z0-9_]*$/;
 
-jsonSchemaAvro.convert = async (schema) => {
+jsonSchemaAvro.convert = (schema) => {
 	if(!schema){
 		throw new Error('No schema given')
 	}
-	const avroSchema = $RefParser ?
-		await $RefParser.dereference(schema)
-		  .then(function(jsonSchema) {
-		    return jsonSchemaAvro._mainRecord(jsonSchema)
-		  })
-		  .catch(function(err) {
-		  	throw err;
-		  }) :
-		await Promise.resolve(jsonSchemaAvro._mainRecord(schema));
-	return avroSchema
+	return jsonSchemaAvro._mainRecord(schema)
 }
 
 jsonSchemaAvro._mainRecord = (jsonSchema) => {
