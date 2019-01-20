@@ -1,5 +1,13 @@
 const jsonSchemaAvro = module.exports = {}
 
+let $RefParser;
+try {
+	$RefParser = require('json-schema-ref-parser');
+}
+catch(e) { 
+	$RefParser = null;
+}
+
 // Json schema on the left, avro on the right
 const typeMapping = {
 	'string': 'string',
@@ -11,10 +19,23 @@ const typeMapping = {
 
 const reSymbol = /^[A-Za-z_][A-Za-z0-9_]*$/;
 
-jsonSchemaAvro.convert = (jsonSchema) => {
-	if(!jsonSchema){
+jsonSchemaAvro.convert = async (schema) => {
+	if(!schema){
 		throw new Error('No schema given')
 	}
+	const avroSchema = $RefParser ?
+		await $RefParser.dereference(schema)
+		  .then(function(jsonSchema) {
+		    return jsonSchemaAvro._mainRecord(jsonSchema)
+		  })
+		  .catch(function(err) {
+		  	throw err;
+		  }) :
+		await Promise.resolve(jsonSchemaAvro._mainRecord(schema));
+	return avroSchema
+}
+
+jsonSchemaAvro._mainRecord = (jsonSchema) => {
 	return {
 		namespace: jsonSchemaAvro._convertId(jsonSchema.id),
 		name: 'main',
