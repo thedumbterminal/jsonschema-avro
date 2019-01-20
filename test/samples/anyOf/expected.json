@@ -1,0 +1,54 @@
+{
+	"namespace": "http.yourdomain.com.schemas.anyOf.schema.json",
+	"name": "main",
+	"doc": "anyOf example",
+	"type": [
+		{
+			"type": "record",
+			"name": "record_0",
+			"doc": "the full address",
+			"fields": [
+				{
+					"name": "street",
+					"doc": "the street",
+					"type": "string"
+				},
+				{
+					"name": "city",
+					"doc": "the city",
+					"type": "string"
+				},
+				{
+					"name": "state",
+					"doc": "the state",
+					"type": "string"
+				}
+			]
+		},
+		{
+			"type": "record",
+			"name": "record_1",
+			"doc": "the short address",
+			"fields": [
+				{
+					"name": "postcode",
+					"doc": "the postcode",
+					"type": "string"
+				},
+				{
+					"name": "type",
+					"doc": "the address type",
+					"type": {
+						"type": "enum",
+						"name": "type_enum",
+						"symbols": [
+							"residential",
+							"business",
+							"mixed_use"
+						]
+					}
+				}
+			]
+		}
+	]
+}

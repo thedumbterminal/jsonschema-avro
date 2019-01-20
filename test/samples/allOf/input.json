@@ -1,0 +1,20 @@
+{
+  "id": "http://yourdomain.com/schemas/allOf-schema.json",
+  "description": "allOf example",
+  "allOf": [
+  	{
+	      "description": "the address",
+	      "type": "object",
+	      "properties": {
+	        "street_address": { "type": "string", "description": "the street address" },
+	        "city":           { "type": "string", "description": "the city" },
+	        "state":          { "type": "string", "description": "the state" }
+	      },
+	      "required": ["street_address", "city", "state"]
+	},
+    { "properties": {
+        "type": { "enum": [ "residential", "business" ], "description": "the address type" }
+      }
+    }
+  ]
+}
