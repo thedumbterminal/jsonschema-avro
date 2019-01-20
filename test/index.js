@@ -15,12 +15,13 @@ describe('index', () => {
 				const expected = require(`../${sampleDir}/${dir}/expected.json`)
 				let result
 
-				before(() => {
-					result = jsonSchemaAvro.convert(inJson)
+				before(async () => {
+					result = await jsonSchemaAvro.convert(inJson)
 				})
 
 				it('converts to avro', () => {
 					//console.log(JSON.stringify(result, null, 2))
+					//console.log(JSON.stringify(expected, null, 2))
 					assert.deepEqual(result, expected)
 				})
 			})
