@@ -11,13 +11,13 @@ const typeMapping = {
 
 const reSymbol = /^[A-Za-z_][A-Za-z0-9_]*$/;
 
-jsonSchemaAvro.convert = (jsonSchema) => {
+jsonSchemaAvro.convert = (jsonSchema, name = 'main') => {
 	if(!jsonSchema){
 		throw new Error('No schema given')
 	}
 	return {
 		namespace: jsonSchemaAvro._convertId(jsonSchema.id),
-		name: 'main',
+		name: name,
 		type: 'record',
 		doc: jsonSchema.description,
 		fields: jsonSchema.properties ? jsonSchemaAvro._convertProperties(jsonSchema.properties) : []

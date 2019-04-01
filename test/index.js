@@ -27,5 +27,25 @@ describe('index', () => {
 			
 		})
 
+		it('should allow to override output avro schema name', () => {
+			const schema = {
+			  id: 'http://yourdomain.com/schemas/myschema.json',
+			  type: 'object',
+			  description: 'foo',
+			}
+			const name = 'bar'
+			const expected = {
+			  doc: 'foo',
+			  fields: [],
+			  type: 'record',
+			  name: 'bar',
+			  namespace: 'http.yourdomain.com.schemas.myschema.json',
+			}
+	  
+			const result = jsonSchemaAvro.convert(schema, name)
+	  
+			assert.deepEqual(result, expected)
+		  })
+
 	})
 })
