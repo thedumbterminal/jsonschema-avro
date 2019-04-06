@@ -1,0 +1,20 @@
+{
+  "id": "http://yourdomain.com/schemas/oneOf-schema.json",
+  "description": "oneOf example",
+  "oneOf": [
+  	{
+  		"type": "null"
+  	},
+  	{
+		"description": "the full address",
+		"name": "address",
+		"type": "object",
+		"properties": {
+			"street":		{ "type": "string", "description": "the street" },
+			"city":         { "type": "string", "description": "the city" },
+			"state":        { "type": "string", "description": "the state" }
+		},
+		"required": ["street", "city", "state"]
+	}
+  ]
+}

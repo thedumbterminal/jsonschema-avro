@@ -1,0 +1,30 @@
+{
+	"namespace": "http.yourdomain.com.schemas.oneOf.schema.json",
+	"name": "main",
+	"doc": "oneOf example",
+	"type": [
+		"null",
+		{
+			"type": "record",
+			"name": "address_record",
+			"doc": "the full address",
+			"fields": [
+				{
+					"name": "street",
+					"doc": "the street",
+					"type": "string"
+				},
+				{
+					"name": "city",
+					"doc": "the city",
+					"type": "string"
+				},
+				{
+					"name": "state",
+					"doc": "the state",
+					"type": "string"
+				}
+			]
+		}
+	]
+}

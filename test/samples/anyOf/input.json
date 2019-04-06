@@ -1,0 +1,25 @@
+{
+  "id": "http://yourdomain.com/schemas/anyOf-schema.json",
+  "description": "anyOf example",
+  "anyOf": [
+  	{
+		"description": "the full address",
+		"type": "object",
+		"properties": {
+			"street":		{ "type": "string", "description": "the street" },
+			"city":         { "type": "string", "description": "the city" },
+			"state":        { "type": "string", "description": "the state" }
+		},
+		"required": ["street", "city", "state"]
+	},
+    { 
+    	"description": "the short address",
+		"type": "object",
+    	"properties": {
+    		"postcode":     { "type": "string", "description": "the postcode" },
+        	"type": 		{ "enum": [ "residential", "business", "mixed_use" ], "description": "the address type" }
+		},
+		"required": ["postcode", "type"]
+    }
+  ]
+}

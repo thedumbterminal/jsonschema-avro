@@ -1,0 +1,35 @@
+{
+  "namespace": "http.yourdomain.com.schemas.allOf.schema.json",
+  "name": "main",
+  "type": "record",
+  "doc": "allOf example",
+  "fields": [
+    {
+      "name": "street_address",
+      "doc": "the street address",
+      "type": "string"
+    },
+    {
+      "name": "city",
+      "doc": "the city",
+      "type": "string"
+    },
+    {
+      "name": "state",
+      "doc": "the state",
+      "type": "string"
+    },
+    {
+      "name": "type",
+      "doc": "the address type",
+      "type": {
+        "type": "enum",
+        "name": "type_enum",
+        "symbols": [
+          "residential",
+          "business"
+        ]
+      }
+    }
+  ]
+}
