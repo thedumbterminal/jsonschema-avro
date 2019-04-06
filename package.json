@@ -4,7 +4,9 @@
   "description": "Convert JSON-schema into avro schema",
   "main": "src/index.js",
   "scripts": {
-    "test": "node_modules/.bin/mocha test"
+    "ci": "npm run lint && npm test",
+    "lint": "eslint .",
+    "test": "mocha test"
   },
   "repository": {
     "type": "git",
@@ -32,6 +34,7 @@
   ],
   "homepage": "https://github.com/thedumbterminal/jsonschema-avro#readme",
   "devDependencies": {
+    "eslint": "^5.16.0",
     "mocha": "^5.2.0"
   }
 }
