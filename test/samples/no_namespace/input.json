@@ -1,0 +1,11 @@
+{
+	"id": "myschema.json",
+	"description": "Example description",
+	"type": "object",
+	"properties": {
+		"first_name": {
+			"description": "the first name",
+			"type": "string"
+		}
+	}
+}

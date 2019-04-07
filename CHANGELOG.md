@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.5.0 (07/04/2019)
+
+* Namespace and name of initial Avro record now generated from JSON Schema ID.
+
 ## v1.4.0 (03/12/2018)
 
 * Array elements now supported. (pdanpdan)
