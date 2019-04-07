@@ -14,7 +14,7 @@
       }
     }
   ],
-  "name": "main",
-  "namespace": "http.yourdomain.com.schemas.myschema.json",
+  "name": "myschema_json",
+  "namespace": "com.yourdomain.schemas",
   "type": "record"
 }
