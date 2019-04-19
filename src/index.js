@@ -130,19 +130,30 @@ jsonSchemaAvro._convertEnumProperty = (name, contents) => {
 	return prop
 }
 
-jsonSchemaAvro._convertProperty = (name, value) => {
+jsonSchemaAvro._convertProperty = (name, value, required = false) => {
 	let prop = {
 		name: name,
 		doc: value.description || ''
 	}
+	let types = []
 	if(value.hasOwnProperty('default')){
+		//console.log('has a default')
 		prop.default = value.default
 	}
+	else if(!required){
+		//console.log('not required and has no default')
+		prop.default = null
+		types.push('null')
+	}
 	if(Array.isArray(value.type)){
-		prop.type = value.type.map(type => typeMapping[type])
+		types = types.concat(value.type.filter(type => type !== 'null').map(type => typeMapping[type]))
 	}
 	else{
-		prop.type = typeMapping[value.type]
+		types.push(typeMapping[value.type])
 	}
+	//console.log('types', types)
+	//console.log('size', types.length)
+	prop.type = types.length > 1 ? types : types.shift()
+	//console.log('prop', prop)
 	return prop
 }
