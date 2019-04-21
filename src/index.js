@@ -20,7 +20,7 @@ jsonSchemaAvro.convert = (jsonSchema) => {
 		name: jsonSchemaAvro._idToName(jsonSchema.id) || 'main',
 		type: 'record',
 		doc: jsonSchema.description,
-		fields: jsonSchema.properties ? jsonSchemaAvro._convertProperties(jsonSchema.properties) : []
+		fields: jsonSchema.properties ? jsonSchemaAvro._convertProperties(jsonSchema.properties, jsonSchema.required) : []
 	}
 	const nameSpace = jsonSchemaAvro._idToNameSpace(jsonSchema.id)
 	if(nameSpace){
@@ -69,7 +69,9 @@ jsonSchemaAvro._hasEnum = (schema) => {
 	return Boolean(schema.enum)
 }
 
-jsonSchemaAvro._convertProperties = (schema) => {
+jsonSchemaAvro._isRequired = (list, item) => list.includes(item)
+
+jsonSchemaAvro._convertProperties = (schema = {}, required = []) => {
 	return Object.keys(schema).map((item) => {
 		if(jsonSchemaAvro._isComplex(schema[item])){
 			return jsonSchemaAvro._convertComplexProperty(item, schema[item])
@@ -80,7 +82,7 @@ jsonSchemaAvro._convertProperties = (schema) => {
 		else if(jsonSchemaAvro._hasEnum(schema[item])){
 			return jsonSchemaAvro._convertEnumProperty(item, schema[item])
 		}
-		return jsonSchemaAvro._convertProperty(item, schema[item])
+		return jsonSchemaAvro._convertProperty(item, schema[item], jsonSchemaAvro._isRequired(required, item))
 	})
 }
 
@@ -91,7 +93,7 @@ jsonSchemaAvro._convertComplexProperty = (name, contents) => {
 		type: {
 			type: 'record',
 			name: `${name}_record`,
-			fields: jsonSchemaAvro._convertProperties(contents.properties || {})
+			fields: jsonSchemaAvro._convertProperties(contents.properties, contents.required)
 		}
 	}
 }
@@ -106,7 +108,7 @@ jsonSchemaAvro._convertArrayProperty = (name, contents) => {
 				? {
 					type: 'record',
 					name: `${name}_record`,
-					fields: jsonSchemaAvro._convertProperties(contents.items.properties || {})
+					fields: jsonSchemaAvro._convertProperties(contents.items.properties, contents.items.required)
 				}
 				: jsonSchemaAvro._convertProperty(name, contents.items)
 		}
