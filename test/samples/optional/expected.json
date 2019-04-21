@@ -2,7 +2,7 @@
 	"namespace": "com.yourdomain.schemas",
 	"name": "myschema_json",
 	"type": "record",
-	"doc": "Complex example",
+	"doc": "Optional example",
 	"fields": [
 		{
 			"doc": "the address",
@@ -23,11 +23,8 @@
 					{
 						"doc": "the country",
 						"name": "country",
-						"type": [
-							"null",
-							"string"
-						],
-						"default": null
+						"type": "string",
+						"default": "United Kingdom"
 					}
 				]
 			}

@@ -1,20 +1,24 @@
 {
-  "doc": "Array example",
-  "fields": [
-    {
-      "doc": "example array",
-      "name": "list",
-      "type": {
-        "items": {
-          "doc": "a string",
-          "name": "list",
-          "type": "string"
-        },
-        "type": "array"
-      }
-    }
-  ],
-  "name": "myschema_json",
-  "namespace": "com.yourdomain.schemas",
-  "type": "record"
+	"doc": "Array example",
+	"fields": [
+		{
+			"doc": "example array",
+			"name": "list",
+			"type": {
+				"items": {
+					"doc": "a string",
+					"name": "list",
+					"type": [
+						"null",
+						"string"
+					],
+					"default": null
+				},
+				"type": "array"
+			}
+		}
+	],
+	"name": "myschema_json",
+	"namespace": "com.yourdomain.schemas",
+	"type": "record"
 }

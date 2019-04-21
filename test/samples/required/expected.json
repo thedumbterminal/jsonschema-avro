@@ -1,0 +1,33 @@
+{
+	"namespace": "com.yourdomain.schemas",
+	"name": "myschema_json",
+	"type": "record",
+	"doc": "Required example",
+	"fields": [
+		{
+			"doc": "the first name",
+			"name": "first_name",
+			"type": "string"
+		},
+		{
+			"doc": "",
+			"name": "dates",
+			"type": {
+				"fields": [
+					{
+						"doc": "",
+						"name": "birth",
+						"type": "string"
+					},
+					{
+						"doc": "",
+						"name": "death",
+						"type": "string"
+					}
+				],
+				"name": "dates_record",
+				"type": "record"
+			}
+		}
+	]
+}

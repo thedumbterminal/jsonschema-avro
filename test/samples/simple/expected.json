@@ -2,12 +2,16 @@
 	"namespace": "com.yourdomain.schemas",
 	"name": "myschema_json",
 	"type": "record",
-	"doc": "Example description",
+	"doc": "Simple example",
 	"fields": [
 		{
 			"doc": "the first name",
 			"name": "first_name",
-			"type": "string"
+			"type": [
+				"null",
+				"string"
+			],
+			"default": null
 		}
 	]
 }

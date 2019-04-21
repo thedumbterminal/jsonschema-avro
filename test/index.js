@@ -9,6 +9,9 @@ describe('index', () => {
 		const testDirs = fs.readdirSync(sampleDir)
 
 		testDirs.forEach(dir => {
+			if(process.env.ONLY && dir != process.env.ONLY){
+				return
+			}
 
 			describe(dir, () => {
 				const inJson = require(`../${sampleDir}/${dir}/input.json`)

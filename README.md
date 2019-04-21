@@ -35,6 +35,10 @@ Please ensure that the input JSON schema is dereferenced so that all external re
 
     npm test
 
+To run a single test, using the name of the sample:
+
+    ONLY=optional npm test
+
 ## TODO
 
 * Handle `anyOf` and `allOf`.

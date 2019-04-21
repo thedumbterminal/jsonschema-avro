@@ -8,10 +8,11 @@
 			"doc": "the age",
 			"name": "age",
 			"type": [
+				"null",
 				"float",
-				"int",
-				"null"
-			]
+				"int"
+			],
+			"default": null
 		}
 	]
 }

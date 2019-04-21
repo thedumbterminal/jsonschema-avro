@@ -1,0 +1,29 @@
+{
+	"id": "http://yourdomain.com/schemas/myschema.json",
+	"description": "Required example",
+	"type": "object",
+	"properties": {
+		"first_name": {
+			"description": "the first name",
+			"type": "string"
+		},
+		"dates": {
+			"type": "object",
+			"properties": {
+				"birth": {
+					"type": "string"
+				},
+				"death": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"birth",
+				"death"
+			]
+		}
+	},
+	"required": [
+		"first_name"
+	]
+}
