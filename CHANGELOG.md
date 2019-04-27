@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.6.0 (27/04/2019)
+
+* Supports optional properties.
+
 ## v1.5.0 (07/04/2019)
 
 * Namespace and name of initial Avro record now generated from JSON Schema ID.
