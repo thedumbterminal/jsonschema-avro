@@ -3,7 +3,7 @@
 	"description": "Optional example",
 	"type": "object",
 	"properties": {
-		"address": {
+		"address_required": {
 			"description": "the address",
 			"type": "object",
 			"properties": {
@@ -17,6 +17,22 @@
 					"default": "United Kingdom"
 				}
 			}
+		},
+		"address_optional": {
+			"description": "the address",
+			"type": "object",
+			"properties": {
+				"street_address": {
+					"description": "the street address",
+					"type": "string"
+				},
+				"country": {
+					"description": "the country",
+					"type": "string",
+					"default": "United Kingdom"
+				}
+			}
 		}
-	}
+	},
+	"required": ["address_required"]
 }

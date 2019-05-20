@@ -7,7 +7,22 @@
 			"description": "the first name",
 			"type": "string"
 		},
-		"dates": {
+		"dates_required": {
+			"type": "object",
+			"properties": {
+				"birth": {
+					"type": "string"
+				},
+				"death": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"birth",
+				"death"
+			]
+		},
+		"dates_optional": {
 			"type": "object",
 			"properties": {
 				"birth": {
@@ -24,6 +39,7 @@
 		}
 	},
 	"required": [
-		"first_name"
+		"first_name",
+		"dates_required"
 	]
 }

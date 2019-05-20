@@ -11,7 +11,7 @@
 		},
 		{
 			"doc": "",
-			"name": "dates",
+			"name": "dates_required",
 			"type": {
 				"fields": [
 					{
@@ -25,9 +25,33 @@
 						"type": "string"
 					}
 				],
-				"name": "dates_record",
+				"name": "dates_required_record",
 				"type": "record"
 			}
+		},
+		{
+			"doc": "",
+			"name": "dates_optional",
+			"type": [
+				"null",
+				{
+					"fields": [
+						{
+							"doc": "",
+							"name": "birth",
+							"type": "string"
+						},
+						{
+							"doc": "",
+							"name": "death",
+							"type": "string"
+						}
+					],
+					"name": "dates_optional_record",
+					"type": "record"
+				}
+			],
+			"default": null
 		}
 	]
 }

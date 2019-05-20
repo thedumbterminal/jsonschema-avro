@@ -6,10 +6,10 @@
 	"fields": [
 		{
 			"doc": "the address",
-			"name": "address",
+			"name": "address_required",
 			"type": {
 				"type": "record",
-				"name": "address_record",
+				"name": "address_required_record",
 				"fields": [
 					{
 						"doc": "the street address",
@@ -31,6 +31,38 @@
 					}
 				]
 			}
+		},
+		{
+			"doc": "the address",
+			"name": "address_optional",
+			"type": [
+				"null",
+				{
+					"type": "record",
+					"name": "address_optional_record",
+					"fields": [
+						{
+							"doc": "the street address",
+							"name": "street_address",
+							"type": [
+								"null",
+								"string"
+							],
+							"default": null
+						},
+						{
+							"doc": "the country",
+							"name": "country",
+							"type": [
+								"null",
+								"string"
+							],
+							"default": null
+						}
+					]
+				}
+			],
+			"default": null
 		}
 	]
 }

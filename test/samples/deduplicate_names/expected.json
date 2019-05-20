@@ -1,0 +1,46 @@
+{
+  "namespace": "com.yourdomain.schemas",
+	"name": "myschema_json",
+	"doc": "Deduplicate name example",
+  "type": "record",
+  "fields": [
+    {
+      "name": "name",
+      "doc": "",
+      "type": "string"
+		},
+    {
+			"name": "details",
+      "doc": "",
+      "type": {
+				"name": "details_record",
+        "type": "record",
+				"fields": [
+          {
+            "name": "name",
+            "doc": "",
+            "type": "string"
+					},
+          {
+            "name": "details",
+            "doc": "",
+            "type": {
+							"type": "array",
+							"items": {
+								"name": "details2_record",
+                "type": "record",
+								"fields": [
+                  {
+                    "name": "name",
+                    "doc": "",
+                    "type": "string"
+									}
+								]
+							}
+						}
+					}
+				]
+			}
+		}
+	]
+}

@@ -3,7 +3,15 @@
 	"description": "Array example",
 	"type": "object",
 	"properties": {
-		"list": {
+		"list_required": {
+			"description": "example array",
+			"type": "array",
+			"items": {
+				"description": "a string",
+				"type": "string"
+			}
+		},
+		"list_optional": {
 			"description": "example array",
 			"type": "array",
 			"items": {
@@ -11,5 +19,6 @@
 				"type": "string"
 			}
 		}
-	}
+	},
+	"required": ["list_required"]
 }

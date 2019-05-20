@@ -3,11 +3,11 @@
 	"fields": [
 		{
 			"doc": "example array",
-			"name": "list",
+			"name": "list_required",
 			"type": {
 				"items": {
 					"doc": "a string",
-					"name": "list",
+					"name": "list_required",
 					"type": [
 						"null",
 						"string"
@@ -16,6 +16,26 @@
 				},
 				"type": "array"
 			}
+		},
+		{
+			"doc": "example array",
+			"name": "list_optional",
+			"type": [
+				"null",
+				{
+					"items": {
+						"doc": "a string",
+						"name": "list_optional",
+						"type": [
+							"null",
+							"string"
+						],
+						"default": null
+					},
+					"type": "array"
+				}
+			],
+			"default": null
 		}
 	],
 	"name": "myschema_json",

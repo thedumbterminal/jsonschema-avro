@@ -6,15 +6,31 @@
 	"fields": [
 		{
 			"doc": "the gender",
-			"name": "gender",
+			"name": "gender_required",
 			"type": {
-				"name": "gender_enum",
+				"name": "gender_required_enum",
 				"symbols": [
 					"Male",
 					"Female"
 				],
 				"type": "enum"
 			}
+		},
+		{
+			"doc": "the gender",
+			"name": "gender_optional",
+			"type": [
+				"null",
+				{
+					"name": "gender_optional_enum",
+					"symbols": [
+						"Male",
+						"Female"
+					],
+					"type": "enum"
+				}
+			],
+			"default": null
 		}
 	]
 }

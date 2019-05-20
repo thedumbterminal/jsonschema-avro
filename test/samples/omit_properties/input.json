@@ -3,8 +3,12 @@
 	"description": "Example description",
 	"type": "object",
 	"properties": {
-		"body": {
+		"body_required": {
+			"type": "object"
+		},
+		"body_optional": {
 			"type": "object"
 		}
-	}
+	},
+	"required": ["body_required"]
 }

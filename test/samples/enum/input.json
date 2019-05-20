@@ -3,7 +3,15 @@
 	"description": "Enum example",
 	"type": "object",
 	"properties": {
-		"gender": {
+		"gender_required": {
+			"description": "the gender",
+			"type": "string",
+			"enum": [
+				"Male",
+				"Female"
+			]
+		},
+		"gender_optional": {
 			"description": "the gender",
 			"type": "string",
 			"enum": [
@@ -11,5 +19,6 @@
 				"Female"
 			]
 		}
-	}
+	},
+	"required": ["gender_required"]
 }

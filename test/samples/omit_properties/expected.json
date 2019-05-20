@@ -5,13 +5,26 @@
   "doc": "Example description",
   "fields": [
     {
-      "name": "body",
+      "name": "body_required",
       "doc": "",
       "type": {
         "type": "record",
-        "name": "body_record",
+        "name": "body_required_record",
         "fields": []
       }
+    },
+    {
+      "name": "body_optional",
+      "doc": "",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "body_optional_record",
+          "fields": []
+        }
+      ],
+      "default": null
     }
   ]
 }

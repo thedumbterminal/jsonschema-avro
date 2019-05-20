@@ -1,0 +1,40 @@
+{
+	"id": "http://yourdomain.com/schemas/myschema.json",
+	"description": "Deduplicate name example",
+	"type": "object",
+	"properties": {
+		"name": {
+			"type": "string"
+		},
+		"details": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"details": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"name": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"name"
+						]
+					}
+				}
+			},
+			"required": [
+				"name",
+				"details"
+			]
+		}
+	},
+	"required": [
+		"name",
+		"details"
+	]
+}
