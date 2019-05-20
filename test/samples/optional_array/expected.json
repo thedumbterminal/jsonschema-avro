@@ -1,0 +1,28 @@
+{
+	"doc": "Optional array example",
+	"fields": [
+		{
+			"doc": "example array",
+			"name": "list",
+			"type": [
+				"null",
+				{
+					"items": {
+						"doc": "a string",
+						"name": "list",
+						"type": [
+							"null",
+							"string"
+						],
+						"default": null
+					},
+					"type": "array"
+				}
+			],
+			"default": null
+		}
+	],
+	"name": "myschema_json",
+	"namespace": "com.yourdomain.schemas",
+	"type": "record"
+}

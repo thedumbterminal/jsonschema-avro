@@ -1,0 +1,24 @@
+{
+	"namespace": "com.yourdomain.schemas",
+	"name": "myschema_json",
+	"type": "record",
+	"doc": "Optional enum example",
+	"fields": [
+		{
+			"doc": "the gender",
+			"name": "gender",
+			"type": [
+				"null",
+				{
+					"name": "gender_enum",
+					"symbols": [
+						"Male",
+						"Female"
+					],
+					"type": "enum"
+				}
+			],
+			"default": null
+		}
+	]
+}
