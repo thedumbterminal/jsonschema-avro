@@ -1,0 +1,67 @@
+{
+	"namespace": "com.yourdomain.schemas",
+	"name": "myschema_json",
+	"doc": "Deduplicate name example",
+	"type": "record",
+	"fields": [
+		{
+			"name": "name",
+			"doc": "",
+			"type": {
+				"name": "name_enum",
+				"type": "enum",
+				"symbols": [
+					"Name1",
+					"Name2"
+				]
+			}
+		},
+		{
+			"name": "details",
+			"doc": "",
+			"type": {
+				"name": "details_record",
+				"type": "record",
+				"fields": [
+					{
+						"name": "name",
+						"doc": "",
+						"type": {
+							"name": "details_name_enum",
+							"type": "enum",
+							"symbols": [
+								"Name1",
+								"Name2"
+							]
+						}
+					},
+					{
+						"name": "details",
+						"doc": "",
+						"type": {
+							"type": "array",
+							"items": {
+								"name": "details_details_record",
+								"type": "record",
+								"fields": [
+									{
+										"name": "name",
+										"doc": "",
+										"type": {
+											"name": "details_details_name_enum",
+											"type": "enum",
+											"symbols": [
+												"Name1",
+												"Name2"
+											]
+										}
+									}
+								]
+							}
+						}
+					}
+				]
+			}
+		}
+	]
+}
