@@ -1,0 +1,15 @@
+{
+	"id": "http://yourdomain.com/schemas/myschema.json",
+	"description": "Optional enum example",
+	"type": "object",
+	"properties": {
+		"gender": {
+			"description": "the gender",
+			"type": "string",
+			"enum": [
+				"Male",
+				"Female"
+			]
+		}
+	}
+}
