@@ -121,7 +121,7 @@ jsonSchemaAvro._convertEnumProperty = (name, contents) => {
 			}
 			: 'string'
 	}
-	if(contents.hasOwnProperty('default')){
+	if(typeof contents.default !== 'undefined'){
 		prop.default = contents.default
 	}
 	return prop
@@ -133,12 +133,10 @@ jsonSchemaAvro._convertProperty = (name, value, isRequired = false) => {
 		doc: value.description || ''
 	}
 	let types = []
-	if(value.hasOwnProperty('default')){
-		//console.log('has a default')
+	if(typeof value.default !== 'undefined'){
 		prop.default = value.default
 	}
 	else if(!isRequired){
-		//console.log('not required and has no default')
 		prop.default = null
 		types.push('null')
 	}
@@ -148,9 +146,6 @@ jsonSchemaAvro._convertProperty = (name, value, isRequired = false) => {
 	else{
 		types.push(typeMapping[value.type])
 	}
-	//console.log('types', types)
-	//console.log('size', types.length)
 	prop.type = types.length > 1 ? types : types.shift()
-	//console.log('prop', prop)
 	return prop
 }
