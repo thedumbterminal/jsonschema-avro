@@ -1,7 +1,7 @@
 # jsonschema-avro
 
 [![npm](https://img.shields.io/npm/v/jsonschema-avro.svg)](https://www.npmjs.com/package/jsonschema-avro)
-[![Build Status](https://travis-ci.org/thedumbterminal/jsonschema-avro.svg?branch=master)](https://travis-ci.org/thedumbterminal/jsonschema-avro)
+[![Node.js CI](https://github.com/thedumbterminal/jsonschema-avro/actions/workflows/main.yml/badge.svg)](https://github.com/thedumbterminal/jsonschema-avro/actions/workflows/main.yml)
 
 Converts JSON-schema definitions into Avro definitions.
 
