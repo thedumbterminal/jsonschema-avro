@@ -1,6 +1,6 @@
 {
   "name": "jsonschema-avro",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "Convert JSON-schema into avro schema",
   "main": "src/index.js",
   "scripts": {
