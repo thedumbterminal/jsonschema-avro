@@ -1,28 +1,24 @@
 {
-	"namespace": "com.yourdomain.schemas",
-	"name": "myschema_json",
-	"type": "record",
-	"doc": "Example description",
-	"fields": [
-		{
-			"doc": "the first name",
-			"name": "first_name",
-			"type": "string",
-			"default": "bob"
-		},
-		{
-			"doc": "the gender",
-			"name": "gender",
-			"type": {
-				"name": "gender_enum",
-				"symbols": [
-					"Male",
-					"Female"
-				],
-				"type": "enum"
-			},
-			"default": "Male"
-		}
-		
-	]
+  "namespace": "com.yourdomain.schemas",
+  "name": "myschema_json",
+  "type": "record",
+  "doc": "Example description",
+  "fields": [
+    {
+      "doc": "the first name",
+      "name": "first_name",
+      "type": "string",
+      "default": "bob"
+    },
+    {
+      "doc": "the gender",
+      "name": "gender",
+      "type": {
+        "name": "gender_enum",
+        "symbols": ["Male", "Female"],
+        "type": "enum"
+      },
+      "default": "Male"
+    }
+  ]
 }

@@ -1,20 +1,17 @@
 {
-	"namespace": "com.yourdomain.schemas",
-	"name": "myschema_json",
-	"type": "record",
-	"doc": "Enum example",
-	"fields": [
-		{
-			"doc": "the gender",
-			"name": "gender",
-			"type": {
-				"name": "gender_enum",
-				"symbols": [
-					"Male",
-					"Female"
-				],
-				"type": "enum"
-			}
-		}
-	]
+  "namespace": "com.yourdomain.schemas",
+  "name": "myschema_json",
+  "type": "record",
+  "doc": "Enum example",
+  "fields": [
+    {
+      "doc": "the gender",
+      "name": "gender",
+      "type": {
+        "name": "gender_enum",
+        "symbols": ["Male", "Female"],
+        "type": "enum"
+      }
+    }
+  ]
 }

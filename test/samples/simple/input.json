@@ -1,11 +1,11 @@
 {
-	"id": "http://yourdomain.com/schemas/myschema.json",
-	"description": "Simple example",
-	"type": "object",
-	"properties": {
-		"first_name": {
-			"description": "the first name",
-			"type": "string"
-		}
-	}
+  "id": "http://yourdomain.com/schemas/myschema.json",
+  "description": "Simple example",
+  "type": "object",
+  "properties": {
+    "first_name": {
+      "description": "the first name",
+      "type": "string"
+    }
+  }
 }

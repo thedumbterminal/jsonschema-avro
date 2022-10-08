@@ -1,18 +1,14 @@
 {
-	"namespace": "com.yourdomain.schemas",
-	"name": "myschema_json",
-	"type": "record",
-	"doc": "Example description",
-	"fields": [
-		{
-			"doc": "the age",
-			"name": "age",
-			"type": [
-				"null",
-				"float",
-				"int"
-			],
-			"default": null
-		}
-	]
+  "namespace": "com.yourdomain.schemas",
+  "name": "myschema_json",
+  "type": "record",
+  "doc": "Example description",
+  "fields": [
+    {
+      "doc": "the age",
+      "name": "age",
+      "type": ["null", "float", "int"],
+      "default": null
+    }
+  ]
 }
