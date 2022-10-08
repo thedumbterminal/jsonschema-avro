@@ -15,16 +15,18 @@ jsonSchemaAvro.convert = (jsonSchema) => {
   if (!jsonSchema) {
     throw new Error('No schema given')
   }
+  let fields = []
+  if (jsonSchema.properties) {
+    fields = jsonSchemaAvro._convertProperties(
+      jsonSchema.properties,
+      jsonSchema.required
+    )
+  }
   const record = {
     name: jsonSchemaAvro._idToName(jsonSchema.id) || 'main',
     type: 'record',
     doc: jsonSchema.description,
-    fields: jsonSchema.properties
-      ? jsonSchemaAvro._convertProperties(
-        jsonSchema.properties,
-        jsonSchema.required
-      )
-      : [],
+    fields,
   }
   const nameSpace = jsonSchemaAvro._idToNameSpace(jsonSchema.id)
   if (nameSpace) {
