@@ -1,4 +1,3 @@
-const url = require('url')
 const jsonSchemaAvro = (module.exports = {})
 
 // Json schema on the left, avro on the right
@@ -22,9 +21,9 @@ jsonSchemaAvro.convert = (jsonSchema) => {
     doc: jsonSchema.description,
     fields: jsonSchema.properties
       ? jsonSchemaAvro._convertProperties(
-          jsonSchema.properties,
-          jsonSchema.required
-        )
+        jsonSchema.properties,
+        jsonSchema.required
+      )
       : [],
   }
   const nameSpace = jsonSchemaAvro._idToNameSpace(jsonSchema.id)
@@ -38,14 +37,14 @@ jsonSchemaAvro._idToNameSpace = (id) => {
   if (!id) {
     return
   }
-  const parts = url.parse(id)
+  const url = new URL(id, 'http://nonamespace.int/')
   let nameSpace = []
-  if (parts.host) {
-    const reverseHost = parts.host.split(/\./).reverse()
+  if (url.host !== 'nonamespace.int') {
+    const reverseHost = url.host.split(/\./).reverse()
     nameSpace = nameSpace.concat(reverseHost)
   }
-  if (parts.path) {
-    const splitPath = parts.path
+  if (url.pathname) {
+    const splitPath = url.pathname
       .replace(/^\//, '')
       .replace('.', '_')
       .split(/\//)
@@ -58,11 +57,11 @@ jsonSchemaAvro._idToName = (id) => {
   if (!id) {
     return
   }
-  const parts = url.parse(id)
-  if (!parts.path) {
+  const url = new URL(id, 'http://nonamespace.int/')
+  if (!url.pathname) {
     return
   }
-  return parts.path.replace(/^\//, '').replace('.', '_').split(/\//).pop()
+  return url.pathname.replace(/^\//, '').replace('.', '_').split(/\//).pop()
 }
 
 jsonSchemaAvro._isComplex = (schema) => schema.type === 'object'

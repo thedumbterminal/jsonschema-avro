@@ -5,24 +5,27 @@ const fs = require('fs')
 describe('index', () => {
   describe('convert()', () => {
     const sampleDir = './test/samples'
+    // eslint-disable-next-line mocha/no-setup-in-describe
     const testDirs = fs.readdirSync(sampleDir)
 
+    // eslint-disable-next-line mocha/no-setup-in-describe
     testDirs.forEach((dir) => {
-      if (process.env.ONLY && dir != process.env.ONLY) {
+      if (process.env.ONLY && dir !== process.env.ONLY) {
         return
       }
 
       describe(dir, () => {
-        const inJson = require(`../${sampleDir}/${dir}/input.json`)
-        const expected = require(`../${sampleDir}/${dir}/expected.json`)
+        let expected
         let result
 
         before(() => {
+          const inJson = require(`../${sampleDir}/${dir}/input.json`)
+          expected = require(`../${sampleDir}/${dir}/expected.json`)
           result = jsonSchemaAvro.convert(inJson)
         })
 
         it('converts to avro', () => {
-          //console.log(JSON.stringify(result, null, 2))
+          // console.log(JSON.stringify(result, null, 2))
           assert.deepEqual(result, expected)
         })
       })
