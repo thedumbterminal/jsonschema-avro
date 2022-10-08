@@ -91,7 +91,7 @@ jsonSchemaAvro._convertProperties = (schema = {}, required = [], path = []) => {
 }
 
 jsonSchemaAvro._convertComplexProperty = (name, contents, parentPath = []) => {
-  const path = parentPath.slice().concat(name)
+  const path = parentPath.concat(name)
   return {
     name,
     doc: contents.description || '',
@@ -108,7 +108,7 @@ jsonSchemaAvro._convertComplexProperty = (name, contents, parentPath = []) => {
 }
 
 jsonSchemaAvro._convertArrayProperty = (name, contents, parentPath = []) => {
-  const path = parentPath.slice().concat(name)
+  const path = parentPath.concat(name)
   return {
     name,
     doc: contents.description || '',
@@ -130,7 +130,7 @@ jsonSchemaAvro._convertArrayProperty = (name, contents, parentPath = []) => {
 }
 
 jsonSchemaAvro._convertEnumProperty = (name, contents, parentPath = []) => {
-  const path = parentPath.slice().concat(name)
+  const path = parentPath.concat(name)
   const prop = {
     name,
     doc: contents.description || '',
@@ -142,7 +142,7 @@ jsonSchemaAvro._convertEnumProperty = (name, contents, parentPath = []) => {
         }
       : 'string',
   }
-  if (typeof contents.default !== 'undefined') {
+  if (contents.default !== undefined) {
     prop.default = contents.default
   }
   return prop
@@ -154,7 +154,7 @@ jsonSchemaAvro._convertProperty = (name, value, isRequired = false) => {
     doc: value.description || '',
   }
   let types = []
-  if (typeof value.default !== 'undefined') {
+  if (value.default !== undefined) {
     prop.default = value.default
   } else if (!isRequired) {
     prop.default = null
