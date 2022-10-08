@@ -1,16 +1,13 @@
 {
-	"id": "http://yourdomain.com/schemas/myschema.json",
-	"description": "Enum example",
-	"type": "object",
-	"properties": {
-		"gender": {
-			"description": "the gender",
-			"type": "string",
-			"enum": [
-				"Male",
-				"Female"
-			]
-		}
-	},
-	"required": ["gender"]
+  "id": "http://yourdomain.com/schemas/myschema.json",
+  "description": "Enum example",
+  "type": "object",
+  "properties": {
+    "gender": {
+      "description": "the gender",
+      "type": "string",
+      "enum": ["Male", "Female"]
+    }
+  },
+  "required": ["gender"]
 }

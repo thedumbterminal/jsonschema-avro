@@ -1,17 +1,14 @@
 {
-	"namespace": "com.yourdomain.schemas",
-	"name": "myschema_json",
-	"type": "record",
-	"doc": "Simple example",
-	"fields": [
-		{
-			"doc": "the first name",
-			"name": "first_name",
-			"type": [
-				"null",
-				"string"
-			],
-			"default": null
-		}
-	]
+  "namespace": "com.yourdomain.schemas",
+  "name": "myschema_json",
+  "type": "record",
+  "doc": "Simple example",
+  "fields": [
+    {
+      "doc": "the first name",
+      "name": "first_name",
+      "type": ["null", "string"],
+      "default": null
+    }
+  ]
 }

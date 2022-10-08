@@ -6,7 +6,8 @@
   "scripts": {
     "ci": "npm run lint && npm test",
     "lint": "eslint .",
-    "test": "mocha test"
+    "test": "mocha test",
+    "format": "prettier --write ."
   },
   "repository": {
     "type": "git",
@@ -35,6 +36,7 @@
   "homepage": "https://github.com/thedumbterminal/jsonschema-avro#readme",
   "devDependencies": {
     "eslint": "^8.9.0",
-    "mocha": "^10.0.0"
+    "mocha": "^10.0.0",
+    "prettier": "^2.7.1"
   }
 }

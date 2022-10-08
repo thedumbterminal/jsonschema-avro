@@ -4,11 +4,9 @@
     "mocha": true
   },
   "extends": "eslint:recommended",
-  "globals": {
-  },
+  "globals": {},
   "parserOptions": {
     "ecmaVersion": 8
   },
-  "rules": {
-  }
+  "rules": {}
 }

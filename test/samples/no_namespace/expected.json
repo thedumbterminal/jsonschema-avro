@@ -1,16 +1,13 @@
 {
-	"name": "myschema_json",
-	"type": "record",
-	"doc": "Example description",
-	"fields": [
-		{
-			"doc": "the first name",
-			"name": "first_name",
-			"type": [
-				"null",
-				"string"
-			],
-			"default": null
-		}
-	]
+  "name": "myschema_json",
+  "type": "record",
+  "doc": "Example description",
+  "fields": [
+    {
+      "doc": "the first name",
+      "name": "first_name",
+      "type": ["null", "string"],
+      "default": null
+    }
+  ]
 }
