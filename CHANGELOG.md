@@ -1,8 +1,8 @@
 # Changelog
 
-## v1.6.0 (27/04/2019)
+## v1.5.1 (08/10/2022)
 
-- Supports optional properties.
+- Fields now have unique names. (pdanpdan)
 
 ## v1.5.0 (07/04/2019)
 

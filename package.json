@@ -4,10 +4,11 @@
   "description": "Convert JSON-schema into avro schema",
   "main": "src/index.js",
   "scripts": {
-    "ci": "npm run lint && npm test",
+    "ci": "npm run lint && npm run coverage",
     "lint": "eslint .",
     "test": "mocha test",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "coverage": "nyc npm run test"
   },
   "repository": {
     "type": "git",
@@ -37,6 +38,14 @@
   "devDependencies": {
     "eslint": "^8.9.0",
     "mocha": "^10.0.0",
+    "nyc": "^15.1.0",
     "prettier": "^2.7.1"
+  },
+  "nyc": {
+    "check-coverage": true,
+    "branches": 81,
+    "lines": 94,
+    "functions": 100,
+    "statements": 94
   }
 }
