@@ -7,7 +7,7 @@
       "description": "the gender",
       "type": "string",
       "enum": ["Male", "Female"]
-    }
+    },
     "color": {
       "description": "the color",
       "type": ["null", "string"],
