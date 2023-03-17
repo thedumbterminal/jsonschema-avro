@@ -12,6 +12,11 @@
         "symbols": ["Male", "Female"],
         "type": "enum"
       }
+    },
+    {
+      "doc": "the color",
+      "name": "color",
+      "type": ["null", "string"]
     }
   ]
 }
