@@ -7,6 +7,11 @@
       "description": "the gender",
       "type": "string",
       "enum": ["Male", "Female"]
+    },
+    "age": {
+      "description": "the age",
+      "type": ["null", "string"],
+      "enum": [null, "18_or_under", "over_18"]
     }
   },
   "required": ["gender"]

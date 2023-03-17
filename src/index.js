@@ -132,16 +132,20 @@ jsonSchemaAvro._convertArrayProperty = (name, contents, parentPath = []) => {
 
 jsonSchemaAvro._convertEnumProperty = (name, contents, parentPath = []) => {
   const path = parentPath.concat(name)
+  let type = 'string';
+  if (contents.enum.every((symbol) => reSymbol.test(symbol))) {
+    type = {
+      type: 'enum',
+      name: `${path.join('_')}_enum`,
+      symbols: contents.enum,
+    }
+  } else if (contents.enum.includes(null)) {
+    type = ['null', 'string']
+  }
   const prop = {
     name,
     doc: contents.description || '',
-    type: contents.enum.every((symbol) => reSymbol.test(symbol))
-      ? {
-          type: 'enum',
-          name: `${path.join('_')}_enum`,
-          symbols: contents.enum,
-        }
-      : 'string',
+    type,
   }
   if (contents.default !== undefined) {
     prop.default = contents.default
