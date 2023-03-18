@@ -135,7 +135,7 @@ jsonSchemaAvro._convertEnumProperty = (name, contents, parentPath = [], isRequir
   const path = parentPath.concat(name)
   const hasNull = contents.enum.includes(null)
   const symbols = contents.enum.filter((symbol) => symbol !== null)
-  const types = hasNull ? ['null'] : [];
+  const types = hasNull ? ['null'] : []
   if (symbols.every((symbol) => reSymbol.test(symbol))) {
     types.push({
       type: 'enum',
