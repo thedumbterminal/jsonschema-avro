@@ -8,11 +8,21 @@
       "type": "string",
       "enum": ["Male", "Female"]
     },
+    "name": {
+      "description": "the name",
+      "type": ["null", "string"],
+      "enum": [null, "Alice", "Adam"]
+    },
     "age": {
       "description": "the age",
       "type": ["null", "string"],
       "enum": [null, "18_or_under", "over_18"]
+    },
+    "height": {
+      "description": "the height",
+      "type": ["null", "string"],
+      "enum": [null, "6ft_or_under", "over_6ft"]
     }
   },
-  "required": ["gender"]
+  "required": ["gender", "height"]
 }

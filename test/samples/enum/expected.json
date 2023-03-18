@@ -14,8 +14,24 @@
       }
     },
     {
+      "doc": "the name",
+      "name": "name",
+      "type": ["null", {
+        "name": "name_enum",
+        "symbols": ["Alice", "Adam"],
+        "type": "enum"
+      }],
+      "default": null
+    },
+    {
       "doc": "the age",
       "name": "age",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "doc": "the height",
+      "name": "height",
       "type": ["null", "string"]
     }
   ]
