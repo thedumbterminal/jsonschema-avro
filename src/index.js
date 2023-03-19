@@ -67,7 +67,7 @@ jsonSchemaAvro._sanitizedSplitPath = (path) => {
   return path
     .replace(/^\//, '')
     .replace(/\./g, '_')
-    .replace(/\-/g, '_')
+    .replace(/-/g, '_')
     .split(/\//)
 }
 
