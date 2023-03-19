@@ -76,17 +76,18 @@ jsonSchemaAvro._isRequired = (list, item) => list.includes(item)
 
 jsonSchemaAvro._convertProperties = (schema = {}, required = [], path = []) => {
   return Object.keys(schema).map((item) => {
+    const isRequired = jsonSchemaAvro._isRequired(required, item)
     if (jsonSchemaAvro._isComplex(schema[item])) {
       return jsonSchemaAvro._convertComplexProperty(item, schema[item], path)
     } else if (jsonSchemaAvro._isArray(schema[item])) {
       return jsonSchemaAvro._convertArrayProperty(item, schema[item], path)
     } else if (jsonSchemaAvro._hasEnum(schema[item])) {
-      return jsonSchemaAvro._convertEnumProperty(item, schema[item], path)
+      return jsonSchemaAvro._convertEnumProperty(item, schema[item], path, isRequired)
     }
     return jsonSchemaAvro._convertProperty(
       item,
       schema[item],
-      jsonSchemaAvro._isRequired(required, item)
+      isRequired
     )
   })
 }
@@ -130,21 +131,29 @@ jsonSchemaAvro._convertArrayProperty = (name, contents, parentPath = []) => {
   }
 }
 
-jsonSchemaAvro._convertEnumProperty = (name, contents, parentPath = []) => {
+jsonSchemaAvro._convertEnumProperty = (name, contents, parentPath = [], isRequired = false) => {
   const path = parentPath.concat(name)
+  const hasNull = contents.enum.includes(null)
+  const symbols = contents.enum.filter((symbol) => symbol !== null)
+  const types = hasNull ? ['null'] : []
+  if (symbols.every((symbol) => reSymbol.test(symbol))) {
+    types.push({
+      type: 'enum',
+      name: `${path.join('_')}_enum`,
+      symbols,
+    })
+  } else {
+    types.push('string')
+  }
   const prop = {
     name,
     doc: contents.description || '',
-    type: contents.enum.every((symbol) => reSymbol.test(symbol))
-      ? {
-          type: 'enum',
-          name: `${path.join('_')}_enum`,
-          symbols: contents.enum,
-        }
-      : 'string',
+    type: types.length > 1 ? types : types.shift(),
   }
   if (contents.default !== undefined) {
     prop.default = contents.default
+  } else if (hasNull && !isRequired) {
+    prop.default = null
   }
   return prop
 }
