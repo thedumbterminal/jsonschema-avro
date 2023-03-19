@@ -23,12 +23,12 @@ jsonSchemaAvro.convert = (jsonSchema) => {
     )
   }
   const record = {
-    name: jsonSchemaAvro._idToName(jsonSchema.id) || 'main',
+    name: jsonSchemaAvro._idToName(jsonSchema.id || jsonSchema.$id) || 'main',
     type: 'record',
     doc: jsonSchema.description,
     fields,
   }
-  const nameSpace = jsonSchemaAvro._idToNameSpace(jsonSchema.id)
+  const nameSpace = jsonSchemaAvro._idToNameSpace(jsonSchema.id || jsonSchema.$id)
   if (nameSpace) {
     record.namespace = nameSpace
   }

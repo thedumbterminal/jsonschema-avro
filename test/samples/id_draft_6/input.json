@@ -1,0 +1,5 @@
+{
+  "$id": "http://yourdomain.com/schemas/myschema.json",
+  "description": "Example description",
+  "type": "object"
+}
