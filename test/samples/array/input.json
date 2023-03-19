@@ -10,6 +10,14 @@
         "description": "a string",
         "type": "string"
       }
+    },
+    "sequence": {
+      "description": "optional array",
+      "type": "array",
+      "items": {
+        "description": "a number",
+        "type": "number"
+      }
     }
   },
   "required": ["list"]

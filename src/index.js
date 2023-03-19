@@ -80,7 +80,7 @@ jsonSchemaAvro._convertProperties = (schema = {}, required = [], path = []) => {
     if (jsonSchemaAvro._isComplex(schema[item])) {
       return jsonSchemaAvro._convertComplexProperty(item, schema[item], path)
     } else if (jsonSchemaAvro._isArray(schema[item])) {
-      return jsonSchemaAvro._convertArrayProperty(item, schema[item], path)
+      return jsonSchemaAvro._convertArrayProperty(item, schema[item], path, isRequired)
     } else if (jsonSchemaAvro._hasEnum(schema[item])) {
       return jsonSchemaAvro._convertEnumProperty(item, schema[item], path, isRequired)
     }
@@ -109,26 +109,39 @@ jsonSchemaAvro._convertComplexProperty = (name, contents, parentPath = []) => {
   }
 }
 
-jsonSchemaAvro._convertArrayProperty = (name, contents, parentPath = []) => {
+jsonSchemaAvro._convertArrayProperty = (name, contents, parentPath = [], isRequired = false) => {
   const path = parentPath.concat(name)
-  return {
+  const prop = {
     name,
     doc: contents.description || '',
-    type: {
-      type: 'array',
-      items: jsonSchemaAvro._isComplex(contents.items)
-        ? {
-            type: 'record',
-            name: `${path.join('_')}_record`,
-            fields: jsonSchemaAvro._convertProperties(
-              contents.items.properties,
-              contents.items.required,
-              path
-            ),
-          }
-        : jsonSchemaAvro._convertProperty(name, contents.items),
-    },
   }
+  const types = []
+  if (contents.default !== undefined) {
+    prop.default = contents.default
+  } else if (!isRequired) {
+    prop.default = null
+    types.push('null')
+  }
+  const type = {
+    type: 'array',
+    items: jsonSchemaAvro._isComplex(contents.items)
+      ? {
+          type: 'record',
+          name: `${path.join('_')}_record`,
+          fields: jsonSchemaAvro._convertProperties(
+            contents.items.properties,
+            contents.items.required,
+            path
+          ),
+        }
+      : typeMapping[contents.items.type],
+  }
+  if (contents.items.description) {
+    type.doc = contents.items.description
+  }
+  types.push(type)
+  prop.type = types.length > 1 ? types : types.shift()
+  return prop
 }
 
 jsonSchemaAvro._convertEnumProperty = (name, contents, parentPath = [], isRequired = false) => {
