@@ -10,10 +10,6 @@ describe('index', () => {
 
     // eslint-disable-next-line mocha/no-setup-in-describe
     testDirs.forEach((dir) => {
-      if (process.env.ONLY && dir !== process.env.ONLY) {
-        return
-      }
-
       describe(dir, () => {
         let expected
         let result
@@ -24,8 +20,11 @@ describe('index', () => {
           result = jsonSchemaAvro.convert(inJson)
         })
 
-        it('converts to avro', () => {
+        it('converts to avro', function() {
           // console.log(JSON.stringify(result, null, 2))
+          if (process.env.ONLY && dir !== process.env.ONLY) {
+            this.skip()
+          }
           assert.deepEqual(result, expected)
         })
       })
