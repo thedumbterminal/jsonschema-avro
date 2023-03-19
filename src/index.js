@@ -46,10 +46,7 @@ jsonSchemaAvro._idToNameSpace = (id) => {
     nameSpace = nameSpace.concat(reverseHost)
   }
   if (url.pathname) {
-    const splitPath = url.pathname
-      .replace(/^\//, '')
-      .replace('.', '_')
-      .split(/\//)
+    const splitPath = jsonSchemaAvro._sanitizedSplitPath(url.pathname)
     nameSpace = nameSpace.concat(splitPath.slice(0, splitPath.length - 1))
   }
   return nameSpace.join('.')
@@ -63,7 +60,15 @@ jsonSchemaAvro._idToName = (id) => {
   if (!url.pathname) {
     return
   }
-  return url.pathname.replace(/^\//, '').replace('.', '_').split(/\//).pop()
+  return jsonSchemaAvro._sanitizedSplitPath(url.pathname).pop()
+}
+
+jsonSchemaAvro._sanitizedSplitPath = (path) => {
+  return path
+    .replace(/^\//, '')
+    .replace('.', '_')
+    .replace('-', '_')
+    .split(/\//)
 }
 
 jsonSchemaAvro._isComplex = (schema) => schema.type === 'object'
