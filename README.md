@@ -31,13 +31,21 @@ Converts JSON-schema definitions into Avro definitions.
 
 Please ensure that the input JSON schema is dereferenced so that all external references have been resolved. [json-schema-ref-parser](https://www.npmjs.com/package/json-schema-ref-parser) can do this, prior to using this module.
 
-## Test
+## Develop
+
+### Testing
 
     npm test
 
 To run a single test, using the name of the sample:
 
     ONLY=optional npm test
+
+### Code style
+
+This project uses prettier, to format source files run:
+
+    npm run format
 
 ## TODO
 
