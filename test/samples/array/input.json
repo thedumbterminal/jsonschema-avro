@@ -18,6 +18,14 @@
         "description": "a number",
         "type": "number"
       }
+    },
+    "multiple_types": {
+      "description": "multiple types array",
+      "type": "array",
+      "items": {
+        "description": "a number or string",
+        "type": ["number", "string"]
+      }
     }
   },
   "required": ["list"]

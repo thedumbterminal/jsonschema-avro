@@ -114,33 +114,30 @@ jsonSchemaAvro._convertArrayProperty = (name, contents, parentPath = [], isRequi
   const prop = {
     name,
     doc: contents.description || '',
+    type: {
+      type: 'array',
+      items: jsonSchemaAvro._isComplex(contents.items)
+        ? {
+            type: 'record',
+            name: `${path.join('_')}_record`,
+            fields: jsonSchemaAvro._convertProperties(
+              contents.items.properties,
+              contents.items.required,
+              path
+            ),
+          }
+        : jsonSchemaAvro._mapType(contents.items.type),
+    }
   }
-  const types = []
+  if (contents.items.description) {
+    prop.type.doc = contents.items.description
+  }
   if (contents.default !== undefined) {
     prop.default = contents.default
   } else if (!isRequired) {
     prop.default = null
-    types.push('null')
+    prop.type = ['null', prop.type]
   }
-  const type = {
-    type: 'array',
-    items: jsonSchemaAvro._isComplex(contents.items)
-      ? {
-          type: 'record',
-          name: `${path.join('_')}_record`,
-          fields: jsonSchemaAvro._convertProperties(
-            contents.items.properties,
-            contents.items.required,
-            path
-          ),
-        }
-      : typeMapping[contents.items.type],
-  }
-  if (contents.items.description) {
-    type.doc = contents.items.description
-  }
-  types.push(type)
-  prop.type = types.length > 1 ? types : types.shift()
   return prop
 }
 
@@ -175,23 +172,30 @@ jsonSchemaAvro._convertProperty = (name, value, isRequired = false) => {
   const prop = {
     name,
     doc: value.description || '',
+    type: jsonSchemaAvro._mapType(value.type)
   }
-  let types = []
   if (value.default !== undefined) {
     prop.default = value.default
   } else if (!isRequired) {
     prop.default = null
-    types.push('null')
+    if (!Array.isArray(prop.type)) {
+      prop.type = [prop.type]
+    }
+    prop.type.unshift('null')
   }
-  if (Array.isArray(value.type)) {
+  return prop
+}
+
+jsonSchemaAvro._mapType = (type) => {
+  let types = []
+  if (Array.isArray(type)) {
     types = types.concat(
-      value.type
-        .filter((type) => type !== 'null')
-        .map((type) => typeMapping[type])
+      type
+        .filter((t) => t !== 'null')
+        .map((t) => typeMapping[t])
     )
   } else {
-    types.push(typeMapping[value.type])
+    types.push(typeMapping[type])
   }
-  prop.type = types.length > 1 ? types : types.shift()
-  return prop
+  return types.length > 1 ? types : types.shift()
 }

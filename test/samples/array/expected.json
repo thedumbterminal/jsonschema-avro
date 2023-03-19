@@ -22,6 +22,16 @@
         "type": "array"
       }],
       "default": null
+    },
+    {
+      "doc": "multiple types array",
+      "name": "multiple_types",
+      "type": ["null", {
+        "doc": "a number or string",
+        "items": ["float", "string"],
+        "type": "array"
+      }],
+      "default": null
     }
   ]
 }
