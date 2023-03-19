@@ -82,13 +82,14 @@ jsonSchemaAvro._convertProperties = (schema = {}, required = [], path = []) => {
     } else if (jsonSchemaAvro._isArray(schema[item])) {
       return jsonSchemaAvro._convertArrayProperty(item, schema[item], path)
     } else if (jsonSchemaAvro._hasEnum(schema[item])) {
-      return jsonSchemaAvro._convertEnumProperty(item, schema[item], path, isRequired)
+      return jsonSchemaAvro._convertEnumProperty(
+        item,
+        schema[item],
+        path,
+        isRequired
+      )
     }
-    return jsonSchemaAvro._convertProperty(
-      item,
-      schema[item],
-      isRequired
-    )
+    return jsonSchemaAvro._convertProperty(item, schema[item], isRequired)
   })
 }
 
@@ -131,7 +132,12 @@ jsonSchemaAvro._convertArrayProperty = (name, contents, parentPath = []) => {
   }
 }
 
-jsonSchemaAvro._convertEnumProperty = (name, contents, parentPath = [], isRequired = false) => {
+jsonSchemaAvro._convertEnumProperty = (
+  name,
+  contents,
+  parentPath = [],
+  isRequired = false
+) => {
   const path = parentPath.concat(name)
   const hasNull = contents.enum.includes(null)
   const symbols = contents.enum.filter((symbol) => symbol !== null)

@@ -16,11 +16,14 @@
     {
       "doc": "the name",
       "name": "name",
-      "type": ["null", {
-        "name": "name_enum",
-        "symbols": ["Alice", "Adam"],
-        "type": "enum"
-      }],
+      "type": [
+        "null",
+        {
+          "name": "name_enum",
+          "symbols": ["Alice", "Adam"],
+          "type": "enum"
+        }
+      ],
       "default": null
     },
     {

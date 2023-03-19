@@ -20,7 +20,7 @@ describe('index', () => {
           result = jsonSchemaAvro.convert(inJson)
         })
 
-        it('converts to avro', function() {
+        it('converts to avro', function () {
           // console.log(JSON.stringify(result, null, 2))
           if (process.env.ONLY && dir !== process.env.ONLY) {
             this.skip()
