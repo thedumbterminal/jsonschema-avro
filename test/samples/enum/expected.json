@@ -33,6 +33,12 @@
       "doc": "the height",
       "name": "height",
       "type": ["null", "string"]
+    },
+    {
+      "doc": "the weight",
+      "name": "weight",
+      "type": ["null", "string"],
+      "default": null
     }
   ]
 }

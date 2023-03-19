@@ -22,6 +22,11 @@
       "description": "the height",
       "type": ["null", "string"],
       "enum": [null, "6ft_or_under", "over_6ft"]
+    },
+    "weight": {
+      "description": "the weight",
+      "type": "string",
+      "enum": ["60kg_or_under", "over_60kg"]
     }
   },
   "required": ["gender", "height"]
