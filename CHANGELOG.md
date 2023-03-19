@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.7.0 (19/03/2023)
+
+- Nullable enums now supported. (mikeb1rd)
+
 ## v1.6.1 (08/10/2022)
 
 - Fields now have unique names. (pdanpdan)
