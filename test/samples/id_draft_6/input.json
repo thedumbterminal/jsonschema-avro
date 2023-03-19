@@ -1,5 +1,5 @@
 {
-  "$id": "http://yourdomain.com/schemas/my-schema.json",
+  "$id": "http://your-domain.com/the-schemas/my.schema.json",
   "description": "Example description",
   "type": "object"
 }

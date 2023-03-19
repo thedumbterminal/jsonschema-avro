@@ -42,7 +42,7 @@ jsonSchemaAvro._idToNameSpace = (id) => {
   const url = new URL(id, 'http://nonamespace.int/')
   let nameSpace = []
   if (url.host !== 'nonamespace.int') {
-    const reverseHost = url.host.split(/\./).reverse()
+    const reverseHost = url.host.replace(/\-/g, '_').split(/\./).reverse()
     nameSpace = nameSpace.concat(reverseHost)
   }
   if (url.pathname) {
@@ -66,8 +66,8 @@ jsonSchemaAvro._idToName = (id) => {
 jsonSchemaAvro._sanitizedSplitPath = (path) => {
   return path
     .replace(/^\//, '')
-    .replace('.', '_')
-    .replace('-', '_')
+    .replace(/\./g, '_')
+    .replace(/\-/g, '_')
     .split(/\//)
 }
 
