@@ -185,6 +185,7 @@ jsonSchemaAvro._convertProperty = (name, value, isRequired = false) => {
     if (!Array.isArray(prop.type)) {
       prop.type = [prop.type]
     }
+    prop.type = prop.type.filter((t) => t !== 'null')
     prop.type.unshift('null')
   }
   return prop
@@ -194,9 +195,7 @@ jsonSchemaAvro._mapType = (type) => {
   let types = []
   if (Array.isArray(type)) {
     types = types.concat(
-      type
-        .filter((t) => t !== 'null')
-        .map((t) => typeMapping[t])
+      type.map((t) => typeMapping[t])
     )
   } else {
     types.push(typeMapping[type])

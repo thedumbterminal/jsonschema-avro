@@ -18,7 +18,11 @@
         }
       },
       "required": ["birth", "death"]
+    },
+    "required_null": {
+      "description": "when a json schema requires the property to exist, but it can be null",
+      "type": ["null", "string"]
     }
   },
-  "required": ["first_name", "dates"]
+  "required": ["first_name", "dates", "required_null"]
 }
