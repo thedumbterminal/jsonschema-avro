@@ -1,0 +1,20 @@
+{
+  "namespace": "com.yourdomain.schemas",
+  "name": "myschema_json",
+  "type": "record",
+  "doc": "Integer example",
+  "fields": [
+    {
+      "doc": "a small integer",
+      "name": "month",
+      "type": "long",
+      "default": 12
+    },
+    {
+      "doc": "a long integer",
+      "name": "timestamp",
+      "type": "long",
+      "default": 1505569975000
+    }
+  ]
+}

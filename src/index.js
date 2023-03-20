@@ -5,7 +5,7 @@ const typeMapping = {
   string: 'string',
   null: 'null',
   boolean: 'boolean',
-  integer: 'int',
+  integer: 'long',
   number: 'float',
 }
 
