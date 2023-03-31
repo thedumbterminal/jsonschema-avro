@@ -23,23 +23,26 @@ jsonSchemaAvro.convert = (jsonSchema) => {
     )
   }
   const record = {
-    name: jsonSchemaAvro._idToName(jsonSchema.id || jsonSchema.$id) || 'main',
+    name: jsonSchemaAvro._idToName(jsonSchema, 'main'),
     type: 'record',
     doc: jsonSchema.description,
     fields,
   }
-  const nameSpace = jsonSchemaAvro._idToNameSpace(jsonSchema.id || jsonSchema.$id)
+  const nameSpace = jsonSchemaAvro._idToNameSpace(jsonSchema)
   if (nameSpace) {
     record.namespace = nameSpace
   }
   return record
 }
 
-jsonSchemaAvro._idToNameSpace = (id) => {
+jsonSchemaAvro._idToUrl = (id) => new URL(id, 'http://nonamespace.int/')
+
+jsonSchemaAvro._idToNameSpace = (schema) => {
+  const id = schema.$id || schema.id
   if (!id) {
     return
   }
-  const url = new URL(id, 'http://nonamespace.int/')
+  const url = jsonSchemaAvro._idToUrl(id)
   let nameSpace = []
   if (url.host !== 'nonamespace.int') {
     const reverseHost = url.host.replace(/-/g, '_').split(/\./).reverse()
@@ -52,11 +55,12 @@ jsonSchemaAvro._idToNameSpace = (id) => {
   return nameSpace.join('.')
 }
 
-jsonSchemaAvro._idToName = (id) => {
+jsonSchemaAvro._idToName = (schema, fallback) => {
+  const id = schema.$id || schema.id || fallback
   if (!id) {
     return
   }
-  const url = new URL(id, 'http://nonamespace.int/')
+  const url = jsonSchemaAvro._idToUrl(id)
   if (!url.pathname) {
     return
   }

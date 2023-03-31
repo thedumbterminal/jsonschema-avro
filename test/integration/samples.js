@@ -1,10 +1,10 @@
-const jsonSchemaAvro = require('../src/index')
+const jsonSchemaAvro = require('../../src/index')
 const assert = require('assert')
 const fs = require('fs')
 
-describe('index', () => {
+describe('samples', () => {
   describe('convert()', () => {
-    const sampleDir = './test/samples'
+    const sampleDir = './test/integration/samples'
     // eslint-disable-next-line mocha/no-setup-in-describe
     const testDirs = fs.readdirSync(sampleDir)
 
@@ -15,8 +15,8 @@ describe('index', () => {
         let result
 
         before(() => {
-          const inJson = require(`../${sampleDir}/${dir}/input.json`)
-          expected = require(`../${sampleDir}/${dir}/expected.json`)
+          const inJson = require(`../../${sampleDir}/${dir}/input.json`)
+          expected = require(`../../${sampleDir}/${dir}/expected.json`)
           result = jsonSchemaAvro.convert(inJson)
         })
 

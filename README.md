@@ -11,23 +11,25 @@ Converts JSON-schema definitions into Avro definitions.
 
 ## Consume
 
-    const jsonSchemaAvro = require('jsonschema-avro')
+```
+const jsonSchemaAvro = require('jsonschema-avro')
 
-    const inJson = {
-    	"description": "Example description",
-    	"type": "object",
-    	"properties": {
-    		"first_name": { "type": "string" },
-    		"address": {
-    			"type": "object",
-    			"properties": {
-    				"street_address": { "type": "string" }
-    			}
-    		}
-    	}
+const inJson = {
+  "description": "Example description",
+  "type": "object",
+  "properties": {
+    "first_name": { "type": "string" },
+    "address": {
+      "type": "object",
+      "properties": {
+        "street_address": { "type": "string" }
+      }
     }
+  }
+}
 
-    const avro = jsonSchemaAvro.convert(inJson)
+const avro = jsonSchemaAvro.convert(inJson)
+```
 
 Please ensure that the input JSON schema is dereferenced so that all external references have been resolved. [json-schema-ref-parser](https://www.npmjs.com/package/json-schema-ref-parser) can do this, prior to using this module.
 
