@@ -1,21 +1,37 @@
 {
+  "namespace": "com.yourdomain.schemas",
+  "name": "myschema_json",
+  "type": "record",
   "doc": "Array example",
   "fields": [
     {
       "doc": "example array",
       "name": "list",
       "type": {
-        "items": {
-          "doc": "a string",
-          "name": "list",
-          "type": ["null", "string"],
-          "default": null
-        },
+        "doc": "a string",
+        "items": "string",
         "type": "array"
       }
+    },
+    {
+      "doc": "optional array",
+      "name": "sequence",
+      "type": ["null", {
+        "doc": "a number",
+        "items": "float",
+        "type": "array"
+      }],
+      "default": null
+    },
+    {
+      "doc": "multiple types array",
+      "name": "multiple_types",
+      "type": ["null", {
+        "doc": "a number or string",
+        "items": ["float", "string"],
+        "type": "array"
+      }],
+      "default": null
     }
-  ],
-  "name": "myschema_json",
-  "namespace": "com.yourdomain.schemas",
-  "type": "record"
+  ]
 }

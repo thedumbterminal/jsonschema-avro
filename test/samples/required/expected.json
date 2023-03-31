@@ -28,6 +28,11 @@
         "name": "dates_record",
         "type": "record"
       }
+    },
+    {
+      "doc": "when a json schema requires the property to exist, but it can be null",
+      "name": "required_null",
+      "type": ["null", "string"]
     }
   ]
 }

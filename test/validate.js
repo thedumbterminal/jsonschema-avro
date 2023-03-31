@@ -19,11 +19,7 @@ describe('validate', () => {
       it('a valid schema', function () {
         if (process.env.ONLY && dir !== process.env.ONLY) {
           this.skip()
-        } else if (dir === 'array') {
-          // Is this avro valid?
-          this.skip()
         }
-
         assert.doesNotThrow(() => {
           avro.Type.forSchema(schema)
         })

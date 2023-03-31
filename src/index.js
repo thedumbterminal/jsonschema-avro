@@ -5,7 +5,7 @@ const typeMapping = {
   string: 'string',
   null: 'null',
   boolean: 'boolean',
-  integer: 'int',
+  integer: 'long',
   number: 'float',
 }
 
@@ -23,12 +23,12 @@ jsonSchemaAvro.convert = (jsonSchema) => {
     )
   }
   const record = {
-    name: jsonSchemaAvro._idToName(jsonSchema.id) || 'main',
+    name: jsonSchemaAvro._idToName(jsonSchema.id || jsonSchema.$id) || 'main',
     type: 'record',
     doc: jsonSchema.description,
     fields,
   }
-  const nameSpace = jsonSchemaAvro._idToNameSpace(jsonSchema.id)
+  const nameSpace = jsonSchemaAvro._idToNameSpace(jsonSchema.id || jsonSchema.$id)
   if (nameSpace) {
     record.namespace = nameSpace
   }
@@ -42,14 +42,11 @@ jsonSchemaAvro._idToNameSpace = (id) => {
   const url = new URL(id, 'http://nonamespace.int/')
   let nameSpace = []
   if (url.host !== 'nonamespace.int') {
-    const reverseHost = url.host.split(/\./).reverse()
+    const reverseHost = url.host.replace(/-/g, '_').split(/\./).reverse()
     nameSpace = nameSpace.concat(reverseHost)
   }
   if (url.pathname) {
-    const splitPath = url.pathname
-      .replace(/^\//, '')
-      .replace('.', '_')
-      .split(/\//)
+    const splitPath = jsonSchemaAvro._sanitizedSplitPath(url.pathname)
     nameSpace = nameSpace.concat(splitPath.slice(0, splitPath.length - 1))
   }
   return nameSpace.join('.')
@@ -63,7 +60,15 @@ jsonSchemaAvro._idToName = (id) => {
   if (!url.pathname) {
     return
   }
-  return url.pathname.replace(/^\//, '').replace('.', '_').split(/\//).pop()
+  return jsonSchemaAvro._sanitizedSplitPath(url.pathname).pop()
+}
+
+jsonSchemaAvro._sanitizedSplitPath = (path) => {
+  return path
+    .replace(/^\//, '')
+    .replace(/\./g, '_')
+    .replace(/-/g, '_')
+    .split(/\//)
 }
 
 jsonSchemaAvro._isComplex = (schema) => schema.type === 'object'
@@ -80,7 +85,7 @@ jsonSchemaAvro._convertProperties = (schema = {}, required = [], path = []) => {
     if (jsonSchemaAvro._isComplex(schema[item])) {
       return jsonSchemaAvro._convertComplexProperty(item, schema[item], path)
     } else if (jsonSchemaAvro._isArray(schema[item])) {
-      return jsonSchemaAvro._convertArrayProperty(item, schema[item], path)
+      return jsonSchemaAvro._convertArrayProperty(item, schema[item], path, isRequired)
     } else if (jsonSchemaAvro._hasEnum(schema[item])) {
       return jsonSchemaAvro._convertEnumProperty(
         item,
@@ -110,9 +115,9 @@ jsonSchemaAvro._convertComplexProperty = (name, contents, parentPath = []) => {
   }
 }
 
-jsonSchemaAvro._convertArrayProperty = (name, contents, parentPath = []) => {
+jsonSchemaAvro._convertArrayProperty = (name, contents, parentPath = [], isRequired = false) => {
   const path = parentPath.concat(name)
-  return {
+  const prop = {
     name,
     doc: contents.description || '',
     type: {
@@ -127,9 +132,19 @@ jsonSchemaAvro._convertArrayProperty = (name, contents, parentPath = []) => {
               path
             ),
           }
-        : jsonSchemaAvro._convertProperty(name, contents.items),
-    },
+        : jsonSchemaAvro._mapType(contents.items.type),
+    }
   }
+  if (contents.items.description) {
+    prop.type.doc = contents.items.description
+  }
+  if (contents.default !== undefined) {
+    prop.default = contents.default
+  } else if (!isRequired) {
+    prop.default = null
+    prop.type = ['null', prop.type]
+  }
+  return prop
 }
 
 jsonSchemaAvro._convertEnumProperty = (
@@ -141,25 +156,24 @@ jsonSchemaAvro._convertEnumProperty = (
   const path = parentPath.concat(name)
   const hasNull = contents.enum.includes(null)
   const symbols = contents.enum.filter((symbol) => symbol !== null)
-  const types = hasNull ? ['null'] : []
-  if (symbols.every((symbol) => reSymbol.test(symbol))) {
-    types.push({
-      type: 'enum',
-      name: `${path.join('_')}_enum`,
-      symbols,
-    })
-  } else {
-    types.push('string')
-  }
   const prop = {
     name,
     doc: contents.description || '',
-    type: types.length > 1 ? types : types.shift(),
+    type: symbols.every((symbol) => reSymbol.test(symbol))
+      ? {
+          type: 'enum',
+          name: `${path.join('_')}_enum`,
+          symbols,
+        }
+      : 'string',
   }
   if (contents.default !== undefined) {
     prop.default = contents.default
-  } else if (hasNull && !isRequired) {
-    prop.default = null
+  } else if (hasNull || !isRequired) {
+    if (!isRequired) {
+      prop.default = null
+    }
+    prop.type = ['null', prop.type]
   }
   return prop
 }
@@ -168,23 +182,29 @@ jsonSchemaAvro._convertProperty = (name, value, isRequired = false) => {
   const prop = {
     name,
     doc: value.description || '',
+    type: jsonSchemaAvro._mapType(value.type)
   }
-  let types = []
   if (value.default !== undefined) {
     prop.default = value.default
   } else if (!isRequired) {
     prop.default = null
-    types.push('null')
+    if (!Array.isArray(prop.type)) {
+      prop.type = [prop.type]
+    }
+    prop.type = prop.type.filter((t) => t !== 'null')
+    prop.type.unshift('null')
   }
-  if (Array.isArray(value.type)) {
+  return prop
+}
+
+jsonSchemaAvro._mapType = (type) => {
+  let types = []
+  if (Array.isArray(type)) {
     types = types.concat(
-      value.type
-        .filter((type) => type !== 'null')
-        .map((type) => typeMapping[type])
+      type.map((t) => typeMapping[t])
     )
   } else {
-    types.push(typeMapping[value.type])
+    types.push(typeMapping[type])
   }
-  prop.type = types.length > 1 ? types : types.shift()
-  return prop
+  return types.length > 1 ? types : types.shift()
 }

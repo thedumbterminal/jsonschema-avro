@@ -1,0 +1,7 @@
+{
+  "namespace": "com.your_domain.the_schemas",
+  "name": "my_schema_json",
+  "type": "record",
+  "doc": "Example description",
+  "fields": []
+}

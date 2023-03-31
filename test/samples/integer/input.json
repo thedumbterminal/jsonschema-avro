@@ -1,0 +1,17 @@
+{
+  "id": "http://yourdomain.com/schemas/myschema.json",
+  "description": "Integer example",
+  "type": "object",
+  "properties": {
+    "month": {
+      "description": "a small integer",
+      "type": "integer",
+      "default": 12
+    },
+    "timestamp": {
+      "description": "a long integer",
+      "type": "integer",
+      "default": 1505569975000
+    }
+  }
+}
