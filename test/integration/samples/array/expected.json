@@ -5,8 +5,8 @@
   "doc": "Array example",
   "fields": [
     {
-      "doc": "example array",
-      "name": "list",
+      "doc": "required array",
+      "name": "required",
       "type": {
         "doc": "a string",
         "items": "string",
@@ -14,23 +14,39 @@
       }
     },
     {
-      "doc": "optional array",
-      "name": "sequence",
-      "type": ["null", {
-        "doc": "a number",
-        "items": "float",
+      "doc": "array with default",
+      "name": "default",
+      "type": {
+        "doc": "a string",
+        "items": "string",
         "type": "array"
-      }],
+      },
+      "default": []
+    },
+    {
+      "doc": "optional array",
+      "name": "optional",
+      "type": [
+        "null",
+        {
+          "doc": "a number",
+          "items": "float",
+          "type": "array"
+        }
+      ],
       "default": null
     },
     {
       "doc": "multiple types array",
       "name": "multiple_types",
-      "type": ["null", {
-        "doc": "a number or string",
-        "items": ["float", "string"],
-        "type": "array"
-      }],
+      "type": [
+        "null",
+        {
+          "doc": "a number or string",
+          "items": ["float", "string"],
+          "type": "array"
+        }
+      ],
       "default": null
     }
   ]

@@ -1,5 +1,6 @@
 {
   "check-coverage": true,
+  "reporter": ["text", "html"],
   "branches": 100,
   "lines": 100,
   "functions": 100,

@@ -6,9 +6,12 @@
   "scripts": {
     "ci": "npm run lint && npm run coverage",
     "lint": "eslint .",
-    "test": "mocha test/**",
+    "test:unit": "mocha src/**/*.test.js",
+    "test:integration": "mocha test/integration/**",
+    "test": "npm run test:unit && npm run test:integration",
     "format": "prettier --write .",
-    "coverage": "nyc npm run test"
+    "coverage": "nyc npm run test",
+    "coverage:html": "npm run coverage; open coverage/index.html"
   },
   "repository": {
     "type": "git",
