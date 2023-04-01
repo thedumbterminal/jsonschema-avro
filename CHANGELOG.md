@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.8.0 (01/04/2023)
+
+- Support for JSON schema draft v6+ schema IDs. (mikeb1rd)
+- Support for optional arrays and arrays with multiple types. (mikeb1rd)
+- Convert enums without null but are optional. (mikeb1rd)
+
 ## v1.7.0 (19/03/2023)
 
 - Nullable enums now supported. (mikeb1rd)
