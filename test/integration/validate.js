@@ -3,7 +3,7 @@ const assert = require('assert')
 const fs = require('fs')
 
 describe('validate', () => {
-  const sampleDir = './test/samples'
+  const sampleDir = './test/integration/samples'
   // eslint-disable-next-line mocha/no-setup-in-describe
   const testDirs = fs.readdirSync(sampleDir)
 
@@ -13,7 +13,7 @@ describe('validate', () => {
       let schema
 
       before(() => {
-        schema = require(`../${sampleDir}/${dir}/expected.json`)
+        schema = require(`../../${sampleDir}/${dir}/expected.json`)
       })
 
       it('a valid schema', function () {

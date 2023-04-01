@@ -4,3 +4,4 @@
 .project
 .github
 .nyc_output
+.nycrc.json
