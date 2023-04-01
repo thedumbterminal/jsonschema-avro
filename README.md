@@ -37,11 +37,21 @@ Please ensure that the input JSON schema is dereferenced so that all external re
 
 ### Testing
 
+To run all tests:
+
     npm test
 
 To run a single test, using the name of the sample:
 
     ONLY=optional npm test
+
+CI uses the following script:
+
+```
+npm run ci
+```
+
+Please run this on your local machine to ensure CI will pass.
 
 ### Code style
 
