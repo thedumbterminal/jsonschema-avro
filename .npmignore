@@ -5,3 +5,7 @@
 .github
 .nyc_output
 .nycrc.json
+coverage
+.eslintrc.json
+.prettierignore
+.prettierrc.json
