@@ -1,0 +1,8 @@
+{
+  "id": "http://yourdomain.com/schemas/myschema.json",
+  "description": "Simple array example",
+  "type": "array",
+  "items": {
+    "type": "string"
+  }
+}

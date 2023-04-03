@@ -13,21 +13,16 @@ const RE_SYMBOL = /^[A-Za-z_][A-Za-z0-9_]*$/
 const DEFAULT_NAMESPACE = 'nonamespace.int'
 
 jsonSchemaAvro.convert = (jsonSchema) => {
-  if (!jsonSchema) {
+  if (jsonSchema !== Object(jsonSchema)) {
     throw new Error('No schema given')
   }
-  let fields = []
-  if (jsonSchema.properties) {
-    fields = jsonSchemaAvro._convertProperties(
-      jsonSchema.properties,
-      jsonSchema.required
-    )
-  }
+  const name = jsonSchemaAvro._idToName(jsonSchema, 'main')
   const record = {
-    name: jsonSchemaAvro._idToName(jsonSchema, 'main'),
-    type: 'record',
-    doc: jsonSchema.description,
-    fields,
+    name,
+    ...jsonSchemaAvro._convertProperties(jsonSchema, [], name),
+  }
+  if (jsonSchema.description) {
+    record.doc = String(jsonSchema.description)
   }
   const nameSpace = jsonSchemaAvro._idToNameSpace(jsonSchema)
   if (nameSpace) {
@@ -81,142 +76,250 @@ jsonSchemaAvro._isArray = (schema) => schema.type === 'array'
 
 jsonSchemaAvro._hasEnum = (schema) => Boolean(schema.enum)
 
-jsonSchemaAvro._isRequired = (list, item) => list.includes(item)
+jsonSchemaAvro._convertProperties = (
+  jsonSchema,
+  parentPathList,
+  rootName
+) => {
+  const { properties, items, required } = jsonSchema
 
-jsonSchemaAvro._convertProperties = (schema = {}, required = [], path = []) => {
-  return Object.keys(schema).map((item) => {
-    const isRequired = jsonSchemaAvro._isRequired(required, item)
-    if (jsonSchemaAvro._isComplex(schema[item])) {
-      return jsonSchemaAvro._convertComplexProperty(item, schema[item], path)
-    } else if (jsonSchemaAvro._isArray(schema[item])) {
-      return jsonSchemaAvro._convertArrayProperty(
-        item,
-        schema[item],
-        path,
-        isRequired
-      )
-    } else if (jsonSchemaAvro._hasEnum(schema[item])) {
-      return jsonSchemaAvro._convertEnumProperty(
-        item,
-        schema[item],
-        path,
-        isRequired
-      )
+  if (items === Object(items)) {
+    const { type, ...rest } = jsonSchemaAvro._convertArrayProperty(
+      rootName || '',
+      jsonSchema,
+      parentPathList,
+      true
+    )
+    return {
+      ...rest,
+      ...type,
     }
-    return jsonSchemaAvro._convertProperty(item, schema[item], isRequired)
-  })
+  }
+
+  const avroSchema = { type: 'record', fields: [] }
+
+  if (parentPathList.length > 0) {
+    avroSchema.name = `${parentPathList.join('_')}_record`
+  }
+
+  if (properties !== Object(properties)) {
+    return avroSchema
+  }
+
+  return {
+    ...avroSchema,
+    fields: Object.keys(properties).map((propertyName) => {
+      const isRequired =
+        Array.isArray(required) === true &&
+        required.includes(propertyName) === true
+      const propertySchema = properties[propertyName]
+
+      if (jsonSchemaAvro._isComplex(propertySchema)) {
+        return jsonSchemaAvro._convertComplexProperty(
+          propertyName,
+          propertySchema,
+          parentPathList,
+          isRequired
+        )
+      }
+      if (jsonSchemaAvro._isArray(propertySchema)) {
+        return jsonSchemaAvro._convertArrayProperty(
+          propertyName,
+          propertySchema,
+          parentPathList,
+          isRequired
+        )
+      }
+      if (jsonSchemaAvro._hasEnum(propertySchema)) {
+        return jsonSchemaAvro._convertEnumProperty(
+          propertyName,
+          propertySchema,
+          parentPathList,
+          isRequired
+        )
+      }
+      return jsonSchemaAvro._convertProperty(
+        propertyName,
+        propertySchema,
+        isRequired
+      )
+    }),
+  }
 }
 
-jsonSchemaAvro._convertComplexProperty = (name, contents, parentPath) => {
-  const path = parentPath.concat(name)
-  return {
-    name,
-    doc: contents.description || '',
-    type: {
-      type: 'record',
-      name: `${path.join('_')}_record`,
-      fields: jsonSchemaAvro._convertProperties(
-        contents.properties,
-        contents.required,
-        path
-      ),
-    },
+jsonSchemaAvro._convertComplexProperty = (
+  itemName,
+  jsonSchema,
+  parentPathList,
+  isRequired
+) => {
+  const pathList = parentPathList.concat(itemName)
+  const avroSchema = {
+    name: itemName,
+    type: jsonSchemaAvro._convertProperties(jsonSchema, pathList),
   }
+  if (jsonSchema.description) {
+    avroSchema.doc = String(jsonSchema.description)
+  }
+  return jsonSchemaAvro._setTypeAndDefault(avroSchema, jsonSchema, isRequired)
 }
 
 jsonSchemaAvro._convertArrayProperty = (
-  name,
-  contents,
-  parentPath,
+  itemName,
+  jsonSchema,
+  parentPathList,
   isRequired
 ) => {
-  const path = parentPath.concat(name)
-  const prop = {
-    name,
-    doc: contents.description || '',
+  const pathList = parentPathList.concat(itemName)
+  let items
+
+  if (
+    jsonSchemaAvro._isComplex(jsonSchema.items) ||
+    jsonSchemaAvro._isArray(jsonSchema.items)
+  ) {
+    items = jsonSchemaAvro._convertProperties(jsonSchema.items, pathList)
+  } else if (jsonSchemaAvro._hasEnum(jsonSchema.items)) {
+    items = jsonSchemaAvro._convertEnumProperty(
+      jsonSchema.items.name || itemName,
+      jsonSchema.items,
+      parentPathList,
+      true
+    ).type
+  } else {
+    items = jsonSchemaAvro._convertProperty(
+      jsonSchema.items.name,
+      jsonSchema.items,
+      true
+    )
+
+    if (Array.isArray(items.type)) {
+      items.type = items.type.map((type) => {
+        if (jsonSchemaAvro._isComplex(type) || jsonSchemaAvro._isArray(type)) {
+          return jsonSchemaAvro._convertProperties(type, pathList)
+        }
+        if (jsonSchemaAvro._hasEnum(type)) {
+          return jsonSchemaAvro._convertEnumProperty(
+            type.name || itemName,
+            type,
+            parentPathList,
+            true
+          ).type
+        }
+        return type
+      })
+    }
+  }
+
+  const avroSchema = {
     type: {
       type: 'array',
-      items: jsonSchemaAvro._isComplex(contents.items)
-        ? {
-            type: 'record',
-            name: `${path.join('_')}_record`,
-            fields: jsonSchemaAvro._convertProperties(
-              contents.items.properties,
-              contents.items.required,
-              path
-            ),
-          }
-        : jsonSchemaAvro._mapType(contents.items.type),
+      items,
     },
   }
-  if (contents.items.description) {
-    prop.type.doc = contents.items.description
+
+  const { doc, ...rest } = items
+  if (Object.keys(rest).length === 1 && rest.type !== undefined) {
+    avroSchema.type.items = rest.type
+    if (doc) {
+      avroSchema.type.doc = String(doc)
+    }
   }
-  if (contents.default !== undefined) {
-    prop.default = contents.default
-  } else if (!isRequired) {
-    prop.default = null
-    prop.type = ['null', prop.type]
+
+  if (itemName) {
+    avroSchema.name = String(itemName)
   }
-  return prop
+  if (jsonSchema.description) {
+    avroSchema.doc = String(jsonSchema.description)
+  }
+
+  return jsonSchemaAvro._setTypeAndDefault(avroSchema, jsonSchema, isRequired)
 }
 
 jsonSchemaAvro._convertEnumProperty = (
-  name,
-  contents,
-  parentPath,
+  itemName,
+  jsonSchema,
+  parentPathList,
   isRequired
 ) => {
-  const path = parentPath.concat(name)
-  const hasNull = contents.enum.includes(null)
-  const symbols = contents.enum.filter((symbol) => symbol !== null)
-  const prop = {
-    name,
-    doc: contents.description || '',
+  const pathList = parentPathList.concat(itemName)
+  const symbols = jsonSchema.enum.filter((symbol) => symbol !== null)
+  const avroSchema = {
+    name: itemName,
     type: symbols.every((symbol) => RE_SYMBOL.test(symbol))
       ? {
           type: 'enum',
-          name: `${path.join('_')}_enum`,
+          name: `${pathList.join('_')}_enum`,
           symbols,
         }
       : 'string',
   }
-  if (contents.default !== undefined) {
-    prop.default = contents.default
-  } else if (hasNull || !isRequired) {
-    if (!isRequired) {
-      prop.default = null
-    }
-    prop.type = ['null', prop.type]
+  if (jsonSchema.description) {
+    avroSchema.doc = String(jsonSchema.description)
   }
-  return prop
+  if (jsonSchema.enum.includes(null)) {
+    avroSchema.type = ['null', avroSchema.type]
+  }
+  return jsonSchemaAvro._setTypeAndDefault(avroSchema, jsonSchema, isRequired)
 }
 
-jsonSchemaAvro._convertProperty = (name, value, isRequired) => {
-  const prop = {
-    name,
-    doc: value.description || '',
-    type: jsonSchemaAvro._mapType(value.type),
+jsonSchemaAvro._convertProperty = (itemName, jsonSchema, isRequired) => {
+  const avroSchema = {
+    type: jsonSchema.type,
   }
-  if (value.default !== undefined) {
-    prop.default = value.default
-  } else if (!isRequired) {
-    prop.default = null
-    if (!Array.isArray(prop.type)) {
-      prop.type = [prop.type]
-    }
-    prop.type = prop.type.filter((t) => t !== 'null')
-    prop.type.unshift('null')
+  if (itemName) {
+    avroSchema.name = String(itemName)
   }
-  return prop
+  if (jsonSchema.description) {
+    avroSchema.doc = String(jsonSchema.description)
+  }
+  return jsonSchemaAvro._setTypeAndDefault(avroSchema, jsonSchema, isRequired)
 }
 
-jsonSchemaAvro._mapType = (type) => {
-  let types = []
+jsonSchemaAvro._mapType = (propName) => (jsonType) => {
+  const mappedType = jsonType !== Object(jsonType)
+    ? typeMapping[jsonType]
+    : jsonType
+  if (mappedType === undefined) {
+    throw new Error(`Invalid JSON schema type "${jsonType}" for "${propName}"`)
+  }
+  return mappedType
+}
+
+jsonSchemaAvro._setTypeAndDefault = (
+  originalAvroSchema,
+  jsonSchema,
+  isRequired
+) => {
+  const { type } = originalAvroSchema
+  const avroSchema = { ...originalAvroSchema }
+
+  if (jsonSchema.default !== undefined) {
+    avroSchema.default = jsonSchema.default
+  } else if (isRequired !== true) {
+    avroSchema.default = null
+  }
+
+  const hasNull = avroSchema.default === null || (
+    Array.isArray(type) && type.includes('null')
+  )
+  const mapType = jsonSchemaAvro._mapType(avroSchema.name)
+
   if (Array.isArray(type)) {
-    types = types.concat(type.map((t) => typeMapping[t]))
+    const mappedTypes = (hasNull ? ['null'] : [])
+      .concat(
+        hasNull
+          ? type.filter((type) => type !== 'null')
+          : type
+      )
+      .map(mapType)
+
+    avroSchema.type = mappedTypes.length === 1 ? mappedTypes[0] : mappedTypes
   } else {
-    types.push(typeMapping[type])
+    const mappedType = mapType(type)
+    avroSchema.type =
+      hasNull && mappedType !== 'null'
+        ? ['null', mappedType]
+        : mappedType
   }
-  return types.length > 1 ? types : types.shift()
+  return avroSchema
 }

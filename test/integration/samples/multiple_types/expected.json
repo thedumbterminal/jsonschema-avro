@@ -9,6 +9,23 @@
       "name": "age",
       "type": ["null", "double", "long"],
       "default": null
+    },
+    {
+      "doc": "the name",
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "doc": "the nickname",
+      "name": "nickname",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "doc": "the heroname",
+      "name": "heroname",
+      "type": ["null", "string"],
+      "default": null
     }
   ]
 }

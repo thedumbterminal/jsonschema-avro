@@ -1,0 +1,40 @@
+{
+  "namespace": "com.yourdomain.schemas",
+  "doc": "Optional complex example",
+  "name": "myschema_json",
+  "type": "record",
+  "fields": [
+    {
+      "doc": "the address",
+      "name": "address",
+      "type": [
+        "null",
+        {
+          "name": "address_record",
+          "type": "record",
+          "fields": [
+            {
+              "doc": "the street address",
+              "name": "street_address",
+              "type": ["null", "string"],
+              "default": null
+            },
+            {
+              "doc": "the street number",
+              "name": "street_number",
+              "type": ["long", "string"],
+              "default": 0
+            },
+            {
+              "doc": "the country",
+              "name": "country",
+              "type": "string",
+              "default": "no country"
+            }
+          ]
+        }
+      ],
+      "default": null
+    }
+  ]
+}

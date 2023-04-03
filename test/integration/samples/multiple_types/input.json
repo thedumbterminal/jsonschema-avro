@@ -6,6 +6,19 @@
     "age": {
       "description": "the age",
       "type": ["number", "integer", "null"]
+    },
+    "name": {
+      "description": "the name",
+      "type": ["string"]
+    },
+    "nickname": {
+      "description": "the nickname",
+      "type": ["string"]
+    },
+    "heroname": {
+      "description": "the heroname",
+      "type": ["string", "null"]
     }
-  }
+  },
+  "required": ["name"]
 }

@@ -1,0 +1,13 @@
+{
+  "id": "http://yourdomain.com/schemas/myschema.json",
+  "description": "Invalid enum example",
+  "type": "object",
+  "properties": {
+    "gender": {
+      "description": "the gender",
+      "type": "string",
+      "enum": ["Male", "Female", "One or the other"]
+    }
+  },
+  "required": ["gender"]
+}

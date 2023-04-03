@@ -48,6 +48,163 @@
         }
       ],
       "default": null
+    },
+    {
+      "doc": "example array",
+      "name": "list",
+      "type": {
+        "type": "array",
+        "doc": "a string",
+        "items": "string"
+      }
+    },
+    {
+      "doc": "example array of complex items",
+      "name": "list_complex",
+      "type": {
+        "type": "array",
+        "items": {
+          "name": "list_complex_record",
+          "type": "record",
+          "fields": [
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "age",
+              "type": ["null", "long"],
+              "default": null
+            }
+          ]
+        }
+      }
+    },
+    {
+      "doc": "example array of enums",
+      "name": "list_enum",
+      "type": {
+        "type": "array",
+        "items": {
+          "name": "list_enum_enum",
+          "type": "enum",
+          "symbols": ["symbol_a", "symbol_b"]
+        }
+      }
+    },
+    {
+      "doc": "example array of arrays",
+      "name": "list_array",
+      "type": {
+        "type": "array",
+        "items": {
+          "doc": "an array",
+          "type": "array",
+          "items": "string"
+        }
+      }
+    },
+    {
+      "doc": "example array of complex arrays",
+      "name": "list_array_complex",
+      "type": {
+        "type": "array",
+        "items": {
+          "doc": "an array",
+          "type": "array",
+          "items": {
+            "name": "list_array_complex__record",
+            "type": "record",
+            "fields": [
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "age",
+                "type": [
+                  "null",
+                  {
+                    "type": "array",
+                    "items": ["string", "long"]
+                  }
+                ],
+                "default": null
+              },
+              {
+                "name": "gender",
+                "type": [
+                  "null",
+                  {
+                    "type": "array",
+                    "items": {
+                      "name": "list_array_complex__gender_enum",
+                      "type": "enum",
+                      "symbols": ["Male", "Female"]
+                    }
+                  }
+                ],
+                "default": null
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "doc": "example array of union of complex arrays",
+      "name": "list_array_union_complex",
+      "type": {
+        "type": "array",
+        "doc": "an array",
+        "items": [
+          "string",
+          {
+            "type": "array",
+            "items": {
+              "name": "list_array_union_complex__record",
+              "type": "record",
+              "fields": [
+                {
+                  "name": "name",
+                  "type": "string"
+                },
+                {
+                  "name": "age",
+                  "type": [
+                    "null",
+                    {
+                      "type": "array",
+                      "items": ["string", "long"]
+                    }
+                  ],
+                  "default": null
+                },
+                {
+                  "name": "gender",
+                  "type": [
+                    "null",
+                    {
+                      "type": "array",
+                      "items": {
+                        "name": "list_array_union_complex__gender_enum",
+                        "type": "enum",
+                        "symbols": ["Male", "Female"]
+                      }
+                    }
+                  ],
+                  "default": null
+                }
+              ]
+            }
+          },
+          {
+            "name": "list_array_union_complex_enum",
+            "type": "enum",
+            "symbols": ["symbol_a", "symbol_b"]
+          }
+        ]
+      }
     }
   ]
 }

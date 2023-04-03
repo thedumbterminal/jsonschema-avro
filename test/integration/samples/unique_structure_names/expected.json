@@ -6,7 +6,6 @@
   "fields": [
     {
       "name": "name",
-      "doc": "",
       "type": {
         "name": "name_enum",
         "type": "enum",
@@ -15,14 +14,12 @@
     },
     {
       "name": "details",
-      "doc": "",
       "type": {
         "name": "details_record",
         "type": "record",
         "fields": [
           {
             "name": "name",
-            "doc": "",
             "type": {
               "name": "details_name_enum",
               "type": "enum",
@@ -31,7 +28,6 @@
           },
           {
             "name": "details",
-            "doc": "",
             "type": {
               "type": "array",
               "items": {
@@ -40,7 +36,6 @@
                 "fields": [
                   {
                     "name": "name",
-                    "doc": "",
                     "type": {
                       "name": "details_details_name_enum",
                       "type": "enum",

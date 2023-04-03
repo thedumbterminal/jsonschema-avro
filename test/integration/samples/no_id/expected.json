@@ -1,0 +1,13 @@
+{
+  "doc": "Simple example",
+  "name": "main",
+  "type": "record",
+  "fields": [
+    {
+      "doc": "the first name",
+      "name": "first_name",
+      "type": ["null", "string"],
+      "default": null
+    }
+  ]
+}
