@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.8.1 (13/04/2023)
+
+- Remove unwanted console.log.
+
 ## v1.8.0 (01/04/2023)
 
 - Support for JSON schema draft v6+ schema IDs. (mikeb1rd)

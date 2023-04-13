@@ -50,7 +50,6 @@ jsonSchemaAvro._idToNameSpace = (schema) => {
     nameSpace = nameSpace.concat(reverseHost)
   }
   if (url.pathname) {
-    console.log('got a pathname', url.pathname)
     const splitPath = jsonSchemaAvro._sanitizedSplitPath(url.pathname)
     nameSpace = nameSpace.concat(splitPath.slice(0, splitPath.length - 1))
   }
