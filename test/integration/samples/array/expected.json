@@ -30,7 +30,7 @@
         "null",
         {
           "doc": "a number",
-          "items": "float",
+          "items": "double",
           "type": "array"
         }
       ],
