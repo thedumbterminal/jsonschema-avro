@@ -6,7 +6,7 @@ const typeMapping = {
   null: 'null',
   boolean: 'boolean',
   integer: 'long',
-  number: 'float',
+  number: 'double',
 }
 
 const RE_SYMBOL = /^[A-Za-z_][A-Za-z0-9_]*$/
