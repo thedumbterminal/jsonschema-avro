@@ -35,6 +35,10 @@ Please ensure that the input JSON schema is dereferenced so that all external re
 
 ## Develop
 
+Avro schema documentation can be found here:
+
+https://docs.oracle.com/cd/E26161_02/html/GettingStartedGuide/avroschemas.html
+
 ### Testing
 
 To run all tests:
