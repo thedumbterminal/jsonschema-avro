@@ -8,7 +8,6 @@
       "doc": "required array",
       "name": "required",
       "type": {
-        "doc": "a string",
         "items": "string",
         "type": "array"
       }
@@ -17,7 +16,6 @@
       "doc": "array with default",
       "name": "default",
       "type": {
-        "doc": "a string",
         "items": "string",
         "type": "array"
       },
@@ -29,8 +27,7 @@
       "type": [
         "null",
         {
-          "doc": "a number",
-          "items": "float",
+          "items": "double",
           "type": "array"
         }
       ],
@@ -42,8 +39,7 @@
       "type": [
         "null",
         {
-          "doc": "a number or string",
-          "items": ["float", "string"],
+          "items": ["double", "string"],
           "type": "array"
         }
       ],

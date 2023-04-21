@@ -7,7 +7,7 @@
     {
       "doc": "the age",
       "name": "age",
-      "type": ["null", "float", "long"],
+      "type": ["null", "double", "long"],
       "default": null
     }
   ]
