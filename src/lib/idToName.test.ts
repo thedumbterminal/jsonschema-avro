@@ -9,6 +9,13 @@ describe('idToName', function () {
     });
   });
 
+  context('when sanitized path is empty', function () {
+    it('returns the fallback', function () {
+      const result = idToName({ $id: '.'}, 'FALLBACK');
+      assert.strictEqual(result, 'FALLBACK');
+    });
+  });
+
   context('when a path is not found', function () {
     it('returns the fallback', function () {
       const result = idToName({ $id: 'aaa://aa' }, 'FALLBACK');

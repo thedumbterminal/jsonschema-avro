@@ -17,8 +17,7 @@ export function convertComplexProperty(
     type: {
       type: 'record',
       name: `${path.join('_')}_record`,
-      fields:
-        typeof contents === 'object' ? convertProperties(contents, path) : [],
+      fields: convertProperties(contents, path),
     },
   };
 }

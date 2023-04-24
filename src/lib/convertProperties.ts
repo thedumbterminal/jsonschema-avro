@@ -33,7 +33,7 @@ export function convertProperties(
           property.description,
           property.default,
         );
-        return avroField ? [...acc, avroField] : acc;
+        return [...acc, avroField];
       }
 
       const avroField = convertProperty(key, property, isRequired);

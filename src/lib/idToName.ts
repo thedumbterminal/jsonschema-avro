@@ -8,7 +8,7 @@ export function idToName(schema: JSONSchema, fallback: string): string {
   if (id) {
     const url = idToUrl(id);
     if (url.pathname) {
-      return sanitizedSplitPath(url.pathname).pop() ?? '';
+      return sanitizedSplitPath(url.pathname).pop() || fallback;
     }
   }
   return fallback;
