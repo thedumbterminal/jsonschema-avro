@@ -35,6 +35,29 @@
         "description": "a number or string",
         "type": ["number", "string"]
       }
+    },
+    "undefined_items": {
+      "description": "array without items definition",
+      "type": "array"
+    },
+    "boolean_items": {
+      "description": "array with boolean items definition",
+      "type": "array",
+      "items": true
+    },
+    "mixed_items": {
+      "description": "array with items of mixed types",
+      "type": "array",
+      "items": {
+        "type": ["string", 1]
+      }
+    },
+    "non_typed_items": {
+      "description": "array with items with no type",
+      "type": "array",
+      "items": {
+        "description": "a n item of unknown type"
+      }
     }
   },
   "required": ["required"]
