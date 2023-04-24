@@ -31,9 +31,13 @@ const inJson = {
 const avro = jsonSchemaAvro.convert(inJson)
 ```
 
-Please ensure that the input JSON schema is dereferenced so that all external references have been resolved. [json-schema-ref-parser](https://www.npmjs.com/package/json-schema-ref-parser) can do this, prior to using this module.
+Please ensure that the input JSON schema is dereferenced so that all external references have been resolved. [json-schema-ref-parser](https://www.npmjs.com/package/@apidevtools/json-schema-ref-parser) can do this, prior to using this module.
 
 ## Develop
+
+Avro schema documentation can be found here:
+
+https://docs.oracle.com/cd/E26161_02/html/GettingStartedGuide/avroschemas.html
 
 ### Testing
 
