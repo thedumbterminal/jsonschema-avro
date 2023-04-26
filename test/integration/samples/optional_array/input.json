@@ -1,41 +1,8 @@
 {
   "id": "http://yourdomain.com/schemas/myschema.json",
-  "description": "Array example",
+  "description": "Optional array example",
   "type": "object",
   "properties": {
-    "required": {
-      "description": "required array",
-      "type": "array",
-      "items": {
-        "description": "a string",
-        "type": "string"
-      }
-    },
-    "default": {
-      "description": "array with default",
-      "type": "array",
-      "items": {
-        "description": "a string",
-        "type": "string"
-      },
-      "default": []
-    },
-    "optional": {
-      "description": "optional array",
-      "type": "array",
-      "items": {
-        "description": "a number",
-        "type": "number"
-      }
-    },
-    "multiple_types": {
-      "description": "multiple types array",
-      "type": "array",
-      "items": {
-        "description": "a number or string",
-        "type": ["number", "string"]
-      }
-    },
     "list": {
       "description": "example array",
       "type": "array",
@@ -159,14 +126,5 @@
         ]
       }
     }
-  },
-  "required": [
-    "required",
-    "list",
-    "list_complex",
-    "list_enum",
-    "list_array",
-    "list_array_complex",
-    "list_array_union_complex"
-  ]
+  }
 }

@@ -2,11 +2,9 @@
   "namespace": "com.yourdomain.schemas",
   "name": "myschema_json",
   "type": "record",
-  "doc": "Example description",
   "fields": [
     {
       "name": "body",
-      "doc": "",
       "type": {
         "type": "record",
         "name": "body_record",

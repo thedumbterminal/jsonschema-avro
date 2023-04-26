@@ -1,0 +1,10 @@
+{
+  "description": "Simple example",
+  "type": "object",
+  "properties": {
+    "first_name": {
+      "description": "the first name",
+      "type": "string"
+    }
+  }
+}

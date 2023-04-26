@@ -10,17 +10,14 @@
       "type": "string"
     },
     {
-      "doc": "",
       "name": "dates",
       "type": {
         "fields": [
           {
-            "doc": "",
             "name": "birth",
             "type": "string"
           },
           {
-            "doc": "",
             "name": "death",
             "type": "string"
           }

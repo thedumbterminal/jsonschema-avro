@@ -1,0 +1,13 @@
+{
+  "namespace": "com.yourdomain.schemas",
+  "doc": "Invalid enum example",
+  "name": "myschema_json",
+  "type": "record",
+  "fields": [
+    {
+      "doc": "the gender",
+      "name": "gender",
+      "type": "string"
+    }
+  ]
+}

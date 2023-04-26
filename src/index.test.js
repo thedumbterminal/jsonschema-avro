@@ -10,6 +10,28 @@ describe('index', () => {
         }, new Error('No schema given'))
       })
     })
+
+    context('invalid type', () => {
+      it('throws', () => {
+        assert.throws(() => {
+          jsonSchemaAvro.convert({
+            type: 'object',
+            properties: { test: { type: 'invalid' } },
+          })
+        }, new Error('Invalid JSON schema type "invalid" for "test"'))
+      })
+    })
+
+    context('invalid type in union', () => {
+      it('throws', () => {
+        assert.throws(() => {
+          jsonSchemaAvro.convert({
+            type: 'object',
+            properties: { test: { type: ['null', 'invalid'] } },
+          })
+        }, new Error('Invalid JSON schema type "invalid" for "test"'))
+      })
+    })
   })
 
   describe('_idToNameSpace()', () => {
