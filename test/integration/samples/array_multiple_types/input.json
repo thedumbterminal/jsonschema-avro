@@ -1,6 +1,6 @@
 {
   "id": "http://yourdomain.com/schemas/myschema.json",
-  "description": "Array example",
+  "description": "Array of multiple types example",
   "type": "object",
   "properties": {
     "multiple_types": {

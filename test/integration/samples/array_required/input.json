@@ -1,6 +1,6 @@
 {
   "id": "http://yourdomain.com/schemas/myschema.json",
-  "description": "Array example",
+  "description": "Required array example",
   "type": "object",
   "properties": {
     "required": {

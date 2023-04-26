@@ -1,6 +1,6 @@
 {
   "id": "http://yourdomain.com/schemas/myschema.json",
-  "description": "Array example",
+  "description": "Array of enums example",
   "type": "object",
   "properties": {
     "list_enum": {

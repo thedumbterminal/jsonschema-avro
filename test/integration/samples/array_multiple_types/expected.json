@@ -2,7 +2,7 @@
   "namespace": "com.yourdomain.schemas",
   "name": "myschema_json",
   "type": "record",
-  "doc": "Array example",
+  "doc": "Array of multiple types example",
   "fields": [
     {
       "doc": "multiple types array",

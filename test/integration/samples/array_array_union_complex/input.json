@@ -1,6 +1,6 @@
 {
   "id": "http://yourdomain.com/schemas/myschema.json",
-  "description": "Array example",
+  "description": "Array of union of complex arrays example",
   "type": "object",
   "properties": {
     "list_array_union_complex": {
