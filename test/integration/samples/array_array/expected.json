@@ -5,12 +5,15 @@
   "doc": "Array example",
   "fields": [
     {
-      "doc": "example array",
-      "name": "list",
+      "doc": "example array of arrays",
+      "name": "list_array",
       "type": {
         "type": "array",
-        "doc": "a string",
-        "items": "string"
+        "items": {
+          "doc": "an array",
+          "type": "array",
+          "items": "string"
+        }
       }
     }
   ]

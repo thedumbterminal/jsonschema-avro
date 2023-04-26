@@ -1,0 +1,21 @@
+{
+  "namespace": "com.yourdomain.schemas",
+  "name": "myschema_json",
+  "type": "record",
+  "doc": "Array example",
+  "fields": [
+    {
+      "doc": "optional array",
+      "name": "optional",
+      "type": [
+        "null",
+        {
+          "doc": "a number",
+          "items": "double",
+          "type": "array"
+        }
+      ],
+      "default": null
+    }
+  ]
+}

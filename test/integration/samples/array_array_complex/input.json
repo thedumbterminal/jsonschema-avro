@@ -1,0 +1,40 @@
+{
+  "id": "http://yourdomain.com/schemas/myschema.json",
+  "description": "Array example",
+  "type": "object",
+  "properties": {
+    "list_array_complex": {
+      "description": "example array of complex arrays",
+      "type": "array",
+      "items": {
+        "description": "an array",
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "age": {
+              "type": "array",
+              "items": {
+                "type": ["string", "integer"]
+              }
+            },
+            "gender": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["Male", "Female"]
+              }
+            }
+          },
+          "required": ["name"]
+        }
+      }
+    }
+  },
+  "required": [
+    "list_array_complex"
+  ]
+}

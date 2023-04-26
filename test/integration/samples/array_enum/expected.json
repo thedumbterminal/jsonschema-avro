@@ -1,0 +1,20 @@
+{
+  "namespace": "com.yourdomain.schemas",
+  "name": "myschema_json",
+  "type": "record",
+  "doc": "Array example",
+  "fields": [
+    {
+      "doc": "example array of enums",
+      "name": "list_enum",
+      "type": {
+        "type": "array",
+        "items": {
+          "name": "list_enum_enum",
+          "type": "enum",
+          "symbols": ["symbol_a", "symbol_b"]
+        }
+      }
+    }
+  ]
+}

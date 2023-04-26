@@ -5,13 +5,14 @@
   "doc": "Array example",
   "fields": [
     {
-      "doc": "example array",
-      "name": "list",
+      "doc": "array with default",
+      "name": "default",
       "type": {
-        "type": "array",
         "doc": "a string",
-        "items": "string"
-      }
+        "items": "string",
+        "type": "array"
+      },
+      "default": []
     }
   ]
 }

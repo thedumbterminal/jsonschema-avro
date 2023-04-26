@@ -76,11 +76,7 @@ jsonSchemaAvro._isArray = (schema) => schema.type === 'array'
 
 jsonSchemaAvro._hasEnum = (schema) => Boolean(schema.enum)
 
-jsonSchemaAvro._convertProperties = (
-  jsonSchema,
-  parentPathList,
-  rootName
-) => {
+jsonSchemaAvro._convertProperties = (jsonSchema, parentPathList, rootName) => {
   const { properties, items, required } = jsonSchema
 
   if (items === Object(items)) {
@@ -276,9 +272,8 @@ jsonSchemaAvro._convertProperty = (itemName, jsonSchema, isRequired) => {
 }
 
 jsonSchemaAvro._mapType = (propName) => (jsonType) => {
-  const mappedType = jsonType !== Object(jsonType)
-    ? typeMapping[jsonType]
-    : jsonType
+  const mappedType =
+    jsonType !== Object(jsonType) ? typeMapping[jsonType] : jsonType
   if (mappedType === undefined) {
     throw new Error(`Invalid JSON schema type "${jsonType}" for "${propName}"`)
   }
@@ -299,27 +294,21 @@ jsonSchemaAvro._setTypeAndDefault = (
     avroSchema.default = null
   }
 
-  const hasNull = avroSchema.default === null || (
-    Array.isArray(type) && type.includes('null')
-  )
+  const hasNull =
+    avroSchema.default === null ||
+    (Array.isArray(type) && type.includes('null'))
   const mapType = jsonSchemaAvro._mapType(avroSchema.name)
 
   if (Array.isArray(type)) {
     const mappedTypes = (hasNull ? ['null'] : [])
-      .concat(
-        hasNull
-          ? type.filter((type) => type !== 'null')
-          : type
-      )
+      .concat(hasNull ? type.filter((type) => type !== 'null') : type)
       .map(mapType)
 
     avroSchema.type = mappedTypes.length === 1 ? mappedTypes[0] : mappedTypes
   } else {
     const mappedType = mapType(type)
     avroSchema.type =
-      hasNull && mappedType !== 'null'
-        ? ['null', mappedType]
-        : mappedType
+      hasNull && mappedType !== 'null' ? ['null', mappedType] : mappedType
   }
   return avroSchema
 }

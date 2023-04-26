@@ -3,16 +3,19 @@
   "description": "Array example",
   "type": "object",
   "properties": {
-    "list": {
-      "description": "example array",
+    "list_array": {
+      "description": "example array of arrays",
       "type": "array",
       "items": {
-        "description": "a string",
-        "type": "string"
+        "description": "an array",
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
       }
     }
   },
   "required": [
-    "list"
+    "list_array"
   ]
 }

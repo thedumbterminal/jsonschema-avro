@@ -96,26 +96,18 @@
                 "age": {
                   "type": "array",
                   "items": {
-                    "type": [
-                      "string",
-                      "integer"
-                    ]
+                    "type": ["string", "integer"]
                   }
                 },
                 "gender": {
                   "type": "array",
                   "items": {
                     "type": "string",
-                    "enum": [
-                      "Male",
-                      "Female"
-                    ]
+                    "enum": ["Male", "Female"]
                   }
                 }
               },
-              "required": [
-                "name"
-              ]
+              "required": ["name"]
             }
           },
           {

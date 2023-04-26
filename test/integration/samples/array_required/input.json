@@ -3,8 +3,8 @@
   "description": "Array example",
   "type": "object",
   "properties": {
-    "list": {
-      "description": "example array",
+    "required": {
+      "description": "required array",
       "type": "array",
       "items": {
         "description": "a string",
@@ -12,7 +12,5 @@
       }
     }
   },
-  "required": [
-    "list"
-  ]
+  "required": ["required"]
 }

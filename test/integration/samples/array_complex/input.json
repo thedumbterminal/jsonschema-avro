@@ -1,0 +1,27 @@
+{
+  "id": "http://yourdomain.com/schemas/myschema.json",
+  "description": "Array example",
+  "type": "object",
+  "properties": {
+    "list_complex": {
+      "description": "example array of complex items",
+      "type": "array",
+      "items": {
+        "description": "an object",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "age": {
+            "type": "integer"
+          }
+        },
+        "required": ["name"]
+      }
+    }
+  },
+  "required": [
+    "list_complex"
+  ]
+}
