@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.0.0 (26/04/2023)
+
+- JSON schema number type now converts to double Avro type.
+
 ## v1.8.1 (13/04/2023)
 
 - Remove unwanted console.log.
