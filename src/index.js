@@ -1,3 +1,5 @@
+const idUtils = require('./idUtils')
+
 const jsonSchemaAvro = (module.exports = {})
 
 // Json schema on the left, avro on the right
@@ -10,13 +12,12 @@ const typeMapping = {
 }
 
 const RE_SYMBOL = /^[A-Za-z_][A-Za-z0-9_]*$/
-const DEFAULT_NAMESPACE = 'nonamespace.int'
 
 jsonSchemaAvro.convert = (jsonSchema) => {
   if (jsonSchema !== Object(jsonSchema)) {
     throw new Error('No schema given')
   }
-  const name = jsonSchemaAvro._idToName(jsonSchema, 'main')
+  const name = idUtils.toName(jsonSchema, 'main')
   const record = {
     name,
     ...jsonSchemaAvro._convertProperties(jsonSchema, [], name),
@@ -24,51 +25,13 @@ jsonSchemaAvro.convert = (jsonSchema) => {
   if (jsonSchema.description) {
     record.doc = String(jsonSchema.description)
   }
-  const nameSpace = jsonSchemaAvro._idToNameSpace(jsonSchema)
+  const nameSpace = idUtils.toNameSpace(jsonSchema)
   if (nameSpace) {
     record.namespace = nameSpace
   }
   return record
 }
 
-jsonSchemaAvro._idToUrl = (id) => new URL(id, `http://${DEFAULT_NAMESPACE}/`)
-
-jsonSchemaAvro._idToNameSpace = (schema) => {
-  const id = schema.$id || schema.id
-  if (!id) {
-    return
-  }
-  const url = jsonSchemaAvro._idToUrl(id)
-  let nameSpace = []
-  if (url.host !== DEFAULT_NAMESPACE) {
-    const reverseHost = url.host.replace(/-/g, '_').split(/\./).reverse()
-    nameSpace = nameSpace.concat(reverseHost)
-  }
-  if (url.pathname) {
-    const splitPath = jsonSchemaAvro._sanitizedSplitPath(url.pathname)
-    nameSpace = nameSpace.concat(splitPath.slice(0, splitPath.length - 1))
-  }
-  return nameSpace.join('.')
-}
-
-jsonSchemaAvro._idToName = (schema, fallback) => {
-  const id = schema.$id || schema.id
-  if (id) {
-    const url = jsonSchemaAvro._idToUrl(id)
-    if (url.pathname) {
-      return jsonSchemaAvro._sanitizedSplitPath(url.pathname).pop()
-    }
-  }
-  return fallback
-}
-
-jsonSchemaAvro._sanitizedSplitPath = (path) => {
-  return path
-    .replace(/^\//, '')
-    .replace(/\./g, '_')
-    .replace(/-/g, '_')
-    .split(/\//)
-}
 
 jsonSchemaAvro._isComplex = (schema) => schema.type === 'object'
 
@@ -301,7 +264,7 @@ jsonSchemaAvro._setTypeAndDefault = (
 
   if (Array.isArray(type)) {
     const mappedTypes = (hasNull ? ['null'] : [])
-      .concat(hasNull ? type.filter((type) => type !== 'null') : type)
+      .concat(hasNull ? type.filter((item) => item !== 'null') : type)
       .map(mapType)
 
     avroSchema.type = mappedTypes.length === 1 ? mappedTypes[0] : mappedTypes
