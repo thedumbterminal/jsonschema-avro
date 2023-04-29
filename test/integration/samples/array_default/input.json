@@ -1,16 +1,16 @@
 {
   "id": "http://yourdomain.com/schemas/myschema.json",
-  "description": "Array example",
+  "description": "Array with default example",
   "type": "object",
   "properties": {
-    "list": {
-      "description": "example array",
+    "default": {
+      "description": "array with default",
       "type": "array",
       "items": {
         "description": "a string",
         "type": "string"
-      }
+      },
+      "default": []
     }
-  },
-  "required": ["list"]
+  }
 }

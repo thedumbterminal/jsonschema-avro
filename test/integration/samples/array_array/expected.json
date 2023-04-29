@@ -1,0 +1,20 @@
+{
+  "namespace": "com.yourdomain.schemas",
+  "name": "myschema_json",
+  "type": "record",
+  "doc": "Array of arrays example",
+  "fields": [
+    {
+      "doc": "example array of arrays",
+      "name": "list_array",
+      "type": {
+        "type": "array",
+        "items": {
+          "doc": "an array",
+          "type": "array",
+          "items": "string"
+        }
+      }
+    }
+  ]
+}

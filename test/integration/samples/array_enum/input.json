@@ -1,0 +1,17 @@
+{
+  "id": "http://yourdomain.com/schemas/myschema.json",
+  "description": "Array of enums example",
+  "type": "object",
+  "properties": {
+    "list_enum": {
+      "description": "example array of enums",
+      "type": "array",
+      "items": {
+        "description": "an enum",
+        "type": "string",
+        "enum": ["symbol_a", "symbol_b"]
+      }
+    }
+  },
+  "required": ["list_enum"]
+}

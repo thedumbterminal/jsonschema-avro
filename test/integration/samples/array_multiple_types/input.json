@@ -1,0 +1,15 @@
+{
+  "id": "http://yourdomain.com/schemas/myschema.json",
+  "description": "Array of multiple types example",
+  "type": "object",
+  "properties": {
+    "multiple_types": {
+      "description": "multiple types array",
+      "type": "array",
+      "items": {
+        "description": "a number or string",
+        "type": ["number", "string"]
+      }
+    }
+  }
+}

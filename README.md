@@ -63,6 +63,8 @@ This project uses prettier, to format source files run:
 
     npm run format
 
+Please keep the integration tests to a single test per file for readability.
+
 ## TODO
 
 - Handle `anyOf` and `allOf`.

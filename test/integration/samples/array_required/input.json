@@ -1,10 +1,10 @@
 {
   "id": "http://yourdomain.com/schemas/myschema.json",
-  "description": "Array example",
+  "description": "Required array example",
   "type": "object",
   "properties": {
-    "list": {
-      "description": "example array",
+    "required": {
+      "description": "required array",
       "type": "array",
       "items": {
         "description": "a string",
@@ -12,5 +12,5 @@
       }
     }
   },
-  "required": ["list"]
+  "required": ["required"]
 }

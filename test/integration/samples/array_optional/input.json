@@ -1,0 +1,15 @@
+{
+  "id": "http://yourdomain.com/schemas/myschema.json",
+  "description": "Optional array example",
+  "type": "object",
+  "properties": {
+    "optional": {
+      "description": "optional array",
+      "type": "array",
+      "items": {
+        "description": "a number",
+        "type": "number"
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "namespace": "com.yourdomain.schemas",
+  "name": "myschema_json",
+  "type": "record",
+  "doc": "Array of multiple types example",
+  "fields": [
+    {
+      "doc": "multiple types array",
+      "name": "multiple_types",
+      "type": [
+        "null",
+        {
+          "doc": "a number or string",
+          "items": ["double", "string"],
+          "type": "array"
+        }
+      ],
+      "default": null
+    }
+  ]
+}

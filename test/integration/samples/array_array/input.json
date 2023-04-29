@@ -1,0 +1,19 @@
+{
+  "id": "http://yourdomain.com/schemas/myschema.json",
+  "description": "Array of arrays example",
+  "type": "object",
+  "properties": {
+    "list_array": {
+      "description": "example array of arrays",
+      "type": "array",
+      "items": {
+        "description": "an array",
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "required": ["list_array"]
+}
