@@ -13,7 +13,5 @@
       }
     }
   },
-  "required": [
-    "list_enum"
-  ]
+  "required": ["list_enum"]
 }

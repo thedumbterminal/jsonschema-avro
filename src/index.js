@@ -32,7 +32,6 @@ jsonSchemaAvro.convert = (jsonSchema) => {
   return record
 }
 
-
 jsonSchemaAvro._isComplex = (schema) => schema.type === 'object'
 
 jsonSchemaAvro._isArray = (schema) => schema.type === 'array'

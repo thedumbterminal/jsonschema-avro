@@ -34,7 +34,5 @@
       }
     }
   },
-  "required": [
-    "list_array_complex"
-  ]
+  "required": ["list_array_complex"]
 }

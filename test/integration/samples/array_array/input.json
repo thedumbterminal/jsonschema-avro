@@ -15,7 +15,5 @@
       }
     }
   },
-  "required": [
-    "list_array"
-  ]
+  "required": ["list_array"]
 }

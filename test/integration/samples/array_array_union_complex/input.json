@@ -44,7 +44,5 @@
       }
     }
   },
-  "required": [
-    "list_array_union_complex"
-  ]
+  "required": ["list_array_union_complex"]
 }
