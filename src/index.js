@@ -43,7 +43,7 @@ jsonSchemaAvro._convertProperties = (jsonSchema, parentPathList, rootName) => {
   const { properties, items, required } = jsonSchema
 
   if (items === Object(items)) {
-    const { type, ...rest } = jsonSchemaAvro._convertArrayProperty(
+    const { type } = jsonSchemaAvro._convertArrayProperty(
       rootName || '',
       jsonSchema,
       parentPathList,
