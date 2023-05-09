@@ -32,7 +32,7 @@ jsonSchemaAvro.convert = (jsonSchema) => {
   return record
 }
 
-jsonSchemaAvro._isComplex = (schema) => schema.type === 'object'
+jsonSchemaAvro._isComplex = (schema) => schema === Object(schema) && schema.type === 'object'
 
 jsonSchemaAvro._isArray = (schema) => schema.type === 'array'
 
@@ -72,42 +72,45 @@ jsonSchemaAvro._convertProperties = (jsonSchema, parentPathList, rootName) => {
 
   return {
     ...avroSchema,
-    fields: Object.keys(properties).map((propertyName) => {
+    fields: Object.keys(properties).reduce((convertedProperties, propertyName) => {
       const isRequired =
         Array.isArray(required) === true &&
         required.includes(propertyName) === true
       const propertySchema = properties[propertyName]
 
       if (jsonSchemaAvro._isComplex(propertySchema)) {
-        return jsonSchemaAvro._convertComplexProperty(
+        convertedProperties.push(jsonSchemaAvro._convertComplexProperty(
           propertyName,
           propertySchema,
           parentPathList,
           isRequired
-        )
-      }
-      if (jsonSchemaAvro._isArray(propertySchema)) {
-        return jsonSchemaAvro._convertArrayProperty(
+        ))
+      } else if (jsonSchemaAvro._isArray(propertySchema)) {
+        if(propertySchema.items !== undefined) {
+          convertedProperties.push(jsonSchemaAvro._convertArrayProperty(
+            propertyName,
+            propertySchema,
+            parentPathList,
+            isRequired
+          ))
+        }
+      } else if (jsonSchemaAvro._hasEnum(propertySchema)) {
+        convertedProperties.push(jsonSchemaAvro._convertEnumProperty(
           propertyName,
           propertySchema,
           parentPathList,
           isRequired
-        )
-      }
-      if (jsonSchemaAvro._hasEnum(propertySchema)) {
-        return jsonSchemaAvro._convertEnumProperty(
+        ))
+      } else {
+        convertedProperties.push(jsonSchemaAvro._convertProperty(
           propertyName,
           propertySchema,
-          parentPathList,
           isRequired
-        )
+        ))
       }
-      return jsonSchemaAvro._convertProperty(
-        propertyName,
-        propertySchema,
-        isRequired
-      )
-    }),
+
+      return convertedProperties;
+    }, []),
   }
 }
 
