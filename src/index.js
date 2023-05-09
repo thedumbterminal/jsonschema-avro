@@ -50,7 +50,7 @@ jsonSchemaAvro._convertProperties = (jsonSchema, parentPathList, rootName) => {
       true
     )
     return {
-      ...type
+      ...type,
     }
   }
 
