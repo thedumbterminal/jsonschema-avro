@@ -49,19 +49,8 @@ jsonSchemaAvro._convertProperties = (jsonSchema, parentPathList, rootName) => {
       parentPathList,
       true
     )
-    if (
-      type === Object(type) &&
-      type.type === 'array' &&
-      type.items !== undefined
-    ) {
-      return {
-        type: type.type,
-        items: type.items,
-      }
-    }
     return {
-      ...rest,
-      ...type,
+      ...type
     }
   }
 
