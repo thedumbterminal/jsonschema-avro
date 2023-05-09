@@ -86,7 +86,7 @@ jsonSchemaAvro._convertProperties = (jsonSchema, parentPathList, rootName) => {
           isRequired
         ))
       } else if (jsonSchemaAvro._isArray(propertySchema)) {
-        if(propertySchema.items !== undefined) {
+        if(propertySchema.items !== undefined && typeof propertySchema.items !== 'boolean') {
           convertedProperties.push(jsonSchemaAvro._convertArrayProperty(
             propertyName,
             propertySchema,
