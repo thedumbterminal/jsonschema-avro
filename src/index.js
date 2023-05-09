@@ -32,7 +32,8 @@ jsonSchemaAvro.convert = (jsonSchema) => {
   return record
 }
 
-jsonSchemaAvro._isComplex = (schema) => schema === Object(schema) && schema.type === 'object'
+jsonSchemaAvro._isComplex = (schema) =>
+  schema === Object(schema) && schema.type === 'object'
 
 jsonSchemaAvro._isArray = (schema) => schema.type === 'array'
 
@@ -48,7 +49,11 @@ jsonSchemaAvro._convertProperties = (jsonSchema, parentPathList, rootName) => {
       parentPathList,
       true
     )
-    if(type === Object(type) && type.type === 'array' && type.items !== undefined) {
+    if (
+      type === Object(type) &&
+      type.type === 'array' &&
+      type.items !== undefined
+    ) {
       return {
         type: type.type,
         items: type.items,
@@ -72,45 +77,59 @@ jsonSchemaAvro._convertProperties = (jsonSchema, parentPathList, rootName) => {
 
   return {
     ...avroSchema,
-    fields: Object.keys(properties).reduce((convertedProperties, propertyName) => {
-      const isRequired =
-        Array.isArray(required) === true &&
-        required.includes(propertyName) === true
-      const propertySchema = properties[propertyName]
+    fields: Object.keys(properties).reduce(
+      (convertedProperties, propertyName) => {
+        const isRequired =
+          Array.isArray(required) === true &&
+          required.includes(propertyName) === true
+        const propertySchema = properties[propertyName]
 
-      if (jsonSchemaAvro._isComplex(propertySchema)) {
-        convertedProperties.push(jsonSchemaAvro._convertComplexProperty(
-          propertyName,
-          propertySchema,
-          parentPathList,
-          isRequired
-        ))
-      } else if (jsonSchemaAvro._isArray(propertySchema)) {
-        if(propertySchema.items !== undefined && typeof propertySchema.items !== 'boolean') {
-          convertedProperties.push(jsonSchemaAvro._convertArrayProperty(
-            propertyName,
-            propertySchema,
-            parentPathList,
-            isRequired
-          ))
+        if (jsonSchemaAvro._isComplex(propertySchema)) {
+          convertedProperties.push(
+            jsonSchemaAvro._convertComplexProperty(
+              propertyName,
+              propertySchema,
+              parentPathList,
+              isRequired
+            )
+          )
+        } else if (jsonSchemaAvro._isArray(propertySchema)) {
+          if (
+            propertySchema.items !== undefined &&
+            typeof propertySchema.items !== 'boolean'
+          ) {
+            convertedProperties.push(
+              jsonSchemaAvro._convertArrayProperty(
+                propertyName,
+                propertySchema,
+                parentPathList,
+                isRequired
+              )
+            )
+          }
+        } else if (jsonSchemaAvro._hasEnum(propertySchema)) {
+          convertedProperties.push(
+            jsonSchemaAvro._convertEnumProperty(
+              propertyName,
+              propertySchema,
+              parentPathList,
+              isRequired
+            )
+          )
+        } else {
+          convertedProperties.push(
+            jsonSchemaAvro._convertProperty(
+              propertyName,
+              propertySchema,
+              isRequired
+            )
+          )
         }
-      } else if (jsonSchemaAvro._hasEnum(propertySchema)) {
-        convertedProperties.push(jsonSchemaAvro._convertEnumProperty(
-          propertyName,
-          propertySchema,
-          parentPathList,
-          isRequired
-        ))
-      } else {
-        convertedProperties.push(jsonSchemaAvro._convertProperty(
-          propertyName,
-          propertySchema,
-          isRequired
-        ))
-      }
 
-      return convertedProperties;
-    }, []),
+        return convertedProperties
+      },
+      []
+    ),
   }
 }
 
