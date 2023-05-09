@@ -8,7 +8,6 @@
       "doc": "array with default",
       "name": "default",
       "type": {
-        "doc": "a string",
         "items": "string",
         "type": "array"
       },

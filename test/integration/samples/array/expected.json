@@ -9,7 +9,6 @@
       "name": "list",
       "type": {
         "type": "array",
-        "doc": "a string",
         "items": "string"
       }
     }

@@ -22,7 +22,7 @@ jsonSchemaAvro.convert = (jsonSchema) => {
     name,
     ...jsonSchemaAvro._convertProperties(jsonSchema, [], name),
   }
-  if (jsonSchema.description) {
+  if (jsonSchema.description && record.type !== 'array') {
     record.doc = String(jsonSchema.description)
   }
   const nameSpace = idUtils.toNameSpace(jsonSchema)
@@ -48,6 +48,12 @@ jsonSchemaAvro._convertProperties = (jsonSchema, parentPathList, rootName) => {
       parentPathList,
       true
     )
+    if(type === Object(type) && type.type === 'array' && type.items !== undefined) {
+      return {
+        type: type.type,
+        items: type.items,
+      }
+    }
     return {
       ...rest,
       ...type,
@@ -178,9 +184,6 @@ jsonSchemaAvro._convertArrayProperty = (
   const { doc, ...rest } = items
   if (Object.keys(rest).length === 1 && rest.type !== undefined) {
     avroSchema.type.items = rest.type
-    if (doc) {
-      avroSchema.type.doc = String(doc)
-    }
   }
 
   if (itemName) {
