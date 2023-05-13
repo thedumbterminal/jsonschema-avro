@@ -1,5 +1,12 @@
 # Changelog
 
+## v2.1.0 (13/05/2023)
+
+- Doc property removed from array types. (frk-dc)
+- Omit undefined or boolean item types. (frk-dc)
+- Process complex array types (array of arrays/enums/objects). (pdanpdan)
+- Process default on all structure types. (pdanpdan)
+
 ## v2.0.0 (26/04/2023)
 
 - JSON schema number type now converts to double Avro type.
