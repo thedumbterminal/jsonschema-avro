@@ -1,0 +1,12 @@
+{
+  "id": "http://yourdomain.com/schemas/myschema.json",
+  "description": "Array without items schema example",
+  "type": "object",
+  "properties": {
+    "list": {
+      "description": "example array without items schema",
+      "type": "array"
+    }
+  },
+  "required": ["list"]
+}

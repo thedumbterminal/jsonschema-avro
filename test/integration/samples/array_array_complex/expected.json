@@ -10,7 +10,6 @@
       "type": {
         "type": "array",
         "items": {
-          "doc": "an array",
           "type": "array",
           "items": {
             "name": "list_array_complex__record",

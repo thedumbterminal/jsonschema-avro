@@ -1,6 +1,5 @@
 {
   "namespace": "com.yourdomain.schemas",
-  "doc": "Simple array example",
   "name": "myschema_json",
   "type": "array",
   "items": "string"

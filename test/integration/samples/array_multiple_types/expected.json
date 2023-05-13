@@ -10,7 +10,6 @@
       "type": [
         "null",
         {
-          "doc": "a number or string",
           "items": ["double", "string"],
           "type": "array"
         }

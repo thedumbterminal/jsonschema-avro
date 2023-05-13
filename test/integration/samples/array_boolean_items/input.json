@@ -1,0 +1,13 @@
+{
+  "id": "http://yourdomain.com/schemas/myschema.json",
+  "description": "Array with boolean items schema",
+  "type": "object",
+  "properties": {
+    "list": {
+      "description": "example array with boolean items schema",
+      "type": "array",
+      "items": false
+    }
+  },
+  "required": ["list"]
+}

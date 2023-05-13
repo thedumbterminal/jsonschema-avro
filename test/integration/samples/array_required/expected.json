@@ -8,7 +8,6 @@
       "doc": "required array",
       "name": "required",
       "type": {
-        "doc": "a string",
         "items": "string",
         "type": "array"
       }

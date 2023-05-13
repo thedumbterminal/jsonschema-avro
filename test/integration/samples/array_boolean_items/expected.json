@@ -1,0 +1,7 @@
+{
+  "namespace": "com.yourdomain.schemas",
+  "name": "myschema_json",
+  "type": "record",
+  "doc": "Array with boolean items schema",
+  "fields": []
+}

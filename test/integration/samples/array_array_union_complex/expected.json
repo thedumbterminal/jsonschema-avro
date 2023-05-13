@@ -9,7 +9,6 @@
       "name": "list_array_union_complex",
       "type": {
         "type": "array",
-        "doc": "an array",
         "items": [
           "string",
           {

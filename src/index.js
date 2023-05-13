@@ -22,7 +22,7 @@ jsonSchemaAvro.convert = (jsonSchema) => {
     name,
     ...jsonSchemaAvro._convertProperties(jsonSchema, [], name),
   }
-  if (jsonSchema.description) {
+  if (jsonSchema.description && record.type !== 'array') {
     record.doc = String(jsonSchema.description)
   }
   const nameSpace = idUtils.toNameSpace(jsonSchema)
@@ -32,7 +32,8 @@ jsonSchemaAvro.convert = (jsonSchema) => {
   return record
 }
 
-jsonSchemaAvro._isComplex = (schema) => schema.type === 'object'
+jsonSchemaAvro._isComplex = (schema) =>
+  schema === Object(schema) && schema.type === 'object'
 
 jsonSchemaAvro._isArray = (schema) => schema.type === 'array'
 
@@ -42,14 +43,13 @@ jsonSchemaAvro._convertProperties = (jsonSchema, parentPathList, rootName) => {
   const { properties, items, required } = jsonSchema
 
   if (items === Object(items)) {
-    const { type, ...rest } = jsonSchemaAvro._convertArrayProperty(
+    const { type } = jsonSchemaAvro._convertArrayProperty(
       rootName || '',
       jsonSchema,
       parentPathList,
       true
     )
     return {
-      ...rest,
       ...type,
     }
   }
@@ -66,42 +66,59 @@ jsonSchemaAvro._convertProperties = (jsonSchema, parentPathList, rootName) => {
 
   return {
     ...avroSchema,
-    fields: Object.keys(properties).map((propertyName) => {
-      const isRequired =
-        Array.isArray(required) === true &&
-        required.includes(propertyName) === true
-      const propertySchema = properties[propertyName]
+    fields: Object.keys(properties).reduce(
+      (convertedProperties, propertyName) => {
+        const isRequired =
+          Array.isArray(required) === true &&
+          required.includes(propertyName) === true
+        const propertySchema = properties[propertyName]
 
-      if (jsonSchemaAvro._isComplex(propertySchema)) {
-        return jsonSchemaAvro._convertComplexProperty(
-          propertyName,
-          propertySchema,
-          parentPathList,
-          isRequired
-        )
-      }
-      if (jsonSchemaAvro._isArray(propertySchema)) {
-        return jsonSchemaAvro._convertArrayProperty(
-          propertyName,
-          propertySchema,
-          parentPathList,
-          isRequired
-        )
-      }
-      if (jsonSchemaAvro._hasEnum(propertySchema)) {
-        return jsonSchemaAvro._convertEnumProperty(
-          propertyName,
-          propertySchema,
-          parentPathList,
-          isRequired
-        )
-      }
-      return jsonSchemaAvro._convertProperty(
-        propertyName,
-        propertySchema,
-        isRequired
-      )
-    }),
+        if (jsonSchemaAvro._isComplex(propertySchema)) {
+          convertedProperties.push(
+            jsonSchemaAvro._convertComplexProperty(
+              propertyName,
+              propertySchema,
+              parentPathList,
+              isRequired
+            )
+          )
+        } else if (jsonSchemaAvro._isArray(propertySchema)) {
+          if (
+            propertySchema.items !== undefined &&
+            typeof propertySchema.items !== 'boolean'
+          ) {
+            convertedProperties.push(
+              jsonSchemaAvro._convertArrayProperty(
+                propertyName,
+                propertySchema,
+                parentPathList,
+                isRequired
+              )
+            )
+          }
+        } else if (jsonSchemaAvro._hasEnum(propertySchema)) {
+          convertedProperties.push(
+            jsonSchemaAvro._convertEnumProperty(
+              propertyName,
+              propertySchema,
+              parentPathList,
+              isRequired
+            )
+          )
+        } else {
+          convertedProperties.push(
+            jsonSchemaAvro._convertProperty(
+              propertyName,
+              propertySchema,
+              isRequired
+            )
+          )
+        }
+
+        return convertedProperties
+      },
+      []
+    ),
   }
 }
 
@@ -178,9 +195,6 @@ jsonSchemaAvro._convertArrayProperty = (
   const { doc, ...rest } = items
   if (Object.keys(rest).length === 1 && rest.type !== undefined) {
     avroSchema.type.items = rest.type
-    if (doc) {
-      avroSchema.type.doc = String(doc)
-    }
   }
 
   if (itemName) {
