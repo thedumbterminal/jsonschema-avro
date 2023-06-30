@@ -122,64 +122,6 @@
         }
       ],
       "default": null
-    },
-    {
-      "doc": "example array of union of complex arrays",
-      "name": "list_array_union_complex",
-      "type": [
-        "null",
-        {
-          "type": "array",
-          "items": [
-            "string",
-            {
-              "type": "array",
-              "items": {
-                "name": "list_array_union_complex__record",
-                "type": "record",
-                "fields": [
-                  {
-                    "name": "name",
-                    "type": "string"
-                  },
-                  {
-                    "name": "age",
-                    "type": [
-                      "null",
-                      {
-                        "type": "array",
-                        "items": ["string", "long"]
-                      }
-                    ],
-                    "default": null
-                  },
-                  {
-                    "name": "gender",
-                    "type": [
-                      "null",
-                      {
-                        "type": "array",
-                        "items": {
-                          "name": "list_array_union_complex__gender_enum",
-                          "type": "enum",
-                          "symbols": ["Male", "Female"]
-                        }
-                      }
-                    ],
-                    "default": null
-                  }
-                ]
-              }
-            },
-            {
-              "name": "list_array_union_complex_enum",
-              "type": "enum",
-              "symbols": ["symbol_a", "symbol_b"]
-            }
-          ]
-        }
-      ],
-      "default": null
     }
   ]
 }
