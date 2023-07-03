@@ -2,7 +2,8 @@ import {
   isArray,
   isComplex,
   isJSONSchemaEnum,
-  JSONSchemaArray, JSONSchemaTyped,
+  JSONSchemaArray,
+  JSONSchemaTyped,
 } from '../types/json-schema'
 import { convertProperties } from './convertProperties'
 import { convertEnumProperty } from './convertEnumProperty'
