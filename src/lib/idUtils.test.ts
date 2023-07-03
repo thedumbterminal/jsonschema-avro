@@ -29,8 +29,12 @@ describe('idUtils', () => {
     })
 
     context('when a path is not found', () => {
-      it('returns the fallback', () => {
+      it('returns the fallback (from pathname)', () => {
         const result = idUtils.idToName(<any>{ $id: 'aaa://aa' }, 'FALLBACK')
+        assert.strictEqual(result, 'FALLBACK')
+      })
+      it('returns the fallback (from pathname pop)', () => {
+        const result = idUtils.idToName(<any>{ $id: 'aaa://aaa/' }, 'FALLBACK')
         assert.strictEqual(result, 'FALLBACK')
       })
     })

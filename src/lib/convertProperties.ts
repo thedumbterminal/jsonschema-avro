@@ -16,7 +16,7 @@ import { convertEnumProperty } from './convertEnumProperty'
 
 export function convertProperties(
   jsonSchema: JSONSchema,
-  parentPathList: string[] = [],
+  parentPathList: string[],
   rootName = ''
 ): AvroSchemaRecordType | AvroSchemaArrayType {
   const { properties, required } = jsonSchema
@@ -34,13 +34,13 @@ export function convertProperties(
         : rootName,
   }
 
-  if (properties !== Object(properties)) {
+  if (!properties) {
     return avroSchema
   }
 
   return {
     ...avroSchema,
-    fields: Object.entries(properties ?? {}).reduce(
+    fields: Object.entries(properties).reduce(
       (convertedProperties, [propertyName, propertySchema]) => {
         const isRequired =
           Array.isArray(required) && required.includes(propertyName)
@@ -65,9 +65,7 @@ export function convertProperties(
               parentPathList,
               isRequired
             )
-            return convertedArrayProperty
-              ? convertedProperties.concat(convertedArrayProperty)
-              : convertedProperties
+            return convertedProperties.concat(convertedArrayProperty)
           }
         } else if (isJSONSchemaEnum(propertySchema)) {
           return convertedProperties.concat(
