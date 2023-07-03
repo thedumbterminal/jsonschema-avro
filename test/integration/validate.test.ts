@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import * as avro from 'avsc'
 import * as assert from 'assert'
 import { readdirSync } from 'fs'

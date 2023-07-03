@@ -11,7 +11,9 @@ const typeMapping: { [k: string]: string | undefined } = {
 
 export const mapType =
   (propName: string) =>
-  (jsonType: any): AvroSchemaField['type'] | avsc.EnumType['type'] => {
+  <T extends AvroSchemaField['type'] | avsc.EnumType['type']>(
+    jsonType: string | T
+  ): string | T => {
     if (typeof jsonType === 'string' && jsonType.length) {
       const mappedType = typeMapping[jsonType]
       if (mappedType === undefined) {

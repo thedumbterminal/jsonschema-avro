@@ -31,7 +31,7 @@ export function setTypeAndDefault<
     const avroType = mappedTypes.length === 1 ? mappedTypes[0] : mappedTypes
     return { ...avroSchema, type: avroType }
   } else {
-    const mappedType = __mapType(type)
+    const mappedType = __mapType(type ?? '')
     const avroType =
       hasNull && mappedType !== 'null' ? ['null', mappedType] : mappedType
     return { ...avroSchema, type: avroType }

@@ -34,7 +34,8 @@ export const JSONSchemaArraySchema = JSONSchemaSchema.and(
   })
 )
 export type JSONSchemaArray = z.infer<typeof JSONSchemaArraySchema>
-export const isArray = (property: any): property is JSONSchemaArray => {
+
+export const isArray = (property: unknown): property is JSONSchemaArray => {
   const result = JSONSchemaArraySchema.safeParse(property)
   return result.success
 }
@@ -45,7 +46,7 @@ export const JSONSchemaComplexSchema = JSONSchemaSchema.and(
   })
 )
 export type JSONSchemaComplex = z.infer<typeof JSONSchemaComplexSchema>
-export const isComplex = (property: any): property is JSONSchemaComplex =>
+export const isComplex = (property: unknown): property is JSONSchemaComplex =>
   JSONSchemaComplexSchema.safeParse(property).success
 
 export const JSONSchemaTypedSchema = JSONSchemaSchema.and(
@@ -61,7 +62,9 @@ export const JSONSchemaTypedSchema = JSONSchemaSchema.and(
   })
 )
 export type JSONSchemaTyped = z.infer<typeof JSONSchemaTypedSchema>
-export const isJSONSchemaTyped = (property: any): property is JSONSchemaTyped =>
+export const isJSONSchemaTyped = (
+  property: unknown
+): property is JSONSchemaTyped =>
   JSONSchemaTypedSchema.safeParse(property).success
 
 export const JSONSchemaEnumSchema = JSONSchemaSchema.and(
@@ -74,5 +77,7 @@ export const JSONSchemaEnumSchema = JSONSchemaSchema.and(
   })
 )
 export type JSONSchemaEnum = z.infer<typeof JSONSchemaEnumSchema>
-export const isJSONSchemaEnum = (property: any): property is JSONSchemaEnum =>
+export const isJSONSchemaEnum = (
+  property: unknown
+): property is JSONSchemaEnum =>
   JSONSchemaEnumSchema.safeParse(property).success

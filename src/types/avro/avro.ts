@@ -8,6 +8,7 @@ export interface AvroSchemaField {
   name: string
   doc?: string
   type: AvroComplexType | AvroSchemaRecordType | string | string[]
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   default?: any
   order?: 'ascending' | 'descending' | 'ignore'
 }

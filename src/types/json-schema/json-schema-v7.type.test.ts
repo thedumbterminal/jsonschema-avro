@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import assert from 'assert'
 import { JSONSchema7Schema } from './json-schema-v7.type'
 
