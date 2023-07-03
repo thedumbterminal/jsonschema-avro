@@ -62,10 +62,6 @@ export const JSONSchemaTypedSchema = JSONSchemaSchema.and(
   })
 )
 export type JSONSchemaTyped = z.infer<typeof JSONSchemaTypedSchema>
-export const isJSONSchemaTyped = (
-  property: unknown
-): property is JSONSchemaTyped =>
-  JSONSchemaTypedSchema.safeParse(property).success
 
 export const JSONSchemaEnumSchema = JSONSchemaSchema.and(
   z.object({

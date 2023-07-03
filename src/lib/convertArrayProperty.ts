@@ -2,8 +2,7 @@ import {
   isArray,
   isComplex,
   isJSONSchemaEnum,
-  isJSONSchemaTyped,
-  JSONSchemaArray,
+  JSONSchemaArray, JSONSchemaTyped,
 } from '../types/json-schema'
 import { convertProperties } from './convertProperties'
 import { convertEnumProperty } from './convertEnumProperty'
@@ -23,7 +22,7 @@ function convertArrayItems(
     return convertEnumProperty(itemName, jsonSchema.items, parentPathList, true)
       .type
   }
-  const type = isJSONSchemaTyped(jsonSchema.items) ? jsonSchema.items.type : ''
+  const type = (<JSONSchemaTyped>jsonSchema?.items)?.type
   return setTypeAndDefault({ type }, jsonSchema, true).type
 }
 
