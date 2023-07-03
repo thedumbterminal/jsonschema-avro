@@ -1,15 +1,16 @@
 {
   "name": "jsonschema-avro",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "description": "Convert JSON-schema into avro schema",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "scripts": {
+    "build": "tsc",
     "ci": "npm run lint && npm run coverage",
     "lint": "npm run lint:prettier && npm run lint:eslint",
     "lint:prettier": "prettier -c .",
     "lint:eslint": "eslint .",
-    "test:unit": "mocha src/**/*.test.js",
-    "test:integration": "mocha test/integration/**",
+    "test:unit": "mocha -r ts-node/register  src/*.test.ts src/**/*.test.ts",
+    "test:integration": "mocha -r ts-node/register test/integration/**/*.test.ts",
     "test": "npm run test:unit && npm run test:integration",
     "format": "prettier --write .",
     "coverage": "nyc npm run test",
@@ -41,16 +42,25 @@
   ],
   "homepage": "https://github.com/thedumbterminal/jsonschema-avro#readme",
   "devDependencies": {
+    "@types/mocha": "10.0.1",
+    "@types/node": "20.2.4",
+    "@typescript-eslint/eslint-plugin": "5.59.7",
+    "@typescript-eslint/parser": "5.59.7",
     "avsc": "^5.7.7",
     "eslint": "^8.9.0",
+    "eslint-config-prettier": "8.8.0",
     "eslint-config-standard": "^17.0.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-mocha": "^10.1.0",
+    "eslint-import-resolver-alias": "1.1.2",
+    "eslint-plugin-clean-code": "0.1.12",
+    "eslint-plugin-import": "2.27.5",
+    "eslint-plugin-mocha": "10.1.0",
     "eslint-plugin-n": "^15.3.0",
     "eslint-plugin-promise": "^6.0.1",
     "mocha": "^10.0.0",
     "nyc": "^15.1.0",
-    "prettier": "^2.7.1"
+    "prettier": "^2.7.1",
+    "ts-node": "10.9.1",
+    "typescript": "5.0.4"
   },
   "nyc": {
     "check-coverage": true,
@@ -62,5 +72,8 @@
       "text",
       "html"
     ]
+  },
+  "dependencies": {
+    "zod": "3.21.4"
   }
 }
