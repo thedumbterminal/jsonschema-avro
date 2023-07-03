@@ -1,16 +1,18 @@
-const avro = require('avsc')
-const assert = require('assert')
-const fs = require('fs')
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+import * as avro from 'avsc'
+import * as assert from 'assert'
+import { readdirSync } from 'fs'
 
 describe('validate', () => {
   const sampleDir = './test/integration/samples'
   // eslint-disable-next-line mocha/no-setup-in-describe
-  const testDirs = fs.readdirSync(sampleDir)
+  const testDirs = readdirSync(sampleDir)
 
   // eslint-disable-next-line mocha/no-setup-in-describe
   testDirs.forEach((dir) => {
     describe(dir, () => {
-      let schema
+      let schema: any
 
       before(() => {
         schema = require(`../../${sampleDir}/${dir}/expected.json`)
