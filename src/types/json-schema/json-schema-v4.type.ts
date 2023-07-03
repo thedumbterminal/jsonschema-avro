@@ -2,7 +2,7 @@
  * @see https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/json-schema/index.d.ts
  */
 
-import { z } from 'zod';
+import { z } from 'zod'
 
 export const JSONSchema4TypeNameSchema = z.union([
   z.literal('string'),
@@ -13,13 +13,16 @@ export const JSONSchema4TypeNameSchema = z.union([
   z.literal('array'),
   z.literal('null'),
   z.literal('any'),
-]);
+])
 
-export const JSONSchema4ObjectSchema = z.record(z.string(), JSONSchema4TypeNameSchema);
+export const JSONSchema4ObjectSchema = z.record(
+  z.string(),
+  JSONSchema4TypeNameSchema
+)
 
-export const JSONSchema4ArraySchema = JSONSchema4TypeNameSchema.array();
+export const JSONSchema4ArraySchema = JSONSchema4TypeNameSchema.array()
 
-export const JSONSchema4VersionSchema = z.string();
+export const JSONSchema4VersionSchema = z.string()
 
 export const JSONSchema4TypeSchema = z.union([
   z.string(),
@@ -28,7 +31,7 @@ export const JSONSchema4TypeSchema = z.union([
   JSONSchema4ObjectSchema,
   JSONSchema4ArraySchema,
   z.null(),
-]);
+])
 
 export const JSONSchema4BaseSchema = z.object({
   id: z.string().optional(),
@@ -52,46 +55,73 @@ export const JSONSchema4BaseSchema = z.object({
   minProperties: z.number().optional(),
   required: z.union([z.boolean(), z.string().array()]).optional(),
   enum: JSONSchema4TypeSchema.array().optional(),
-  type: z.union([JSONSchema4TypeNameSchema, JSONSchema4TypeNameSchema.array()]).optional(),
+  type: z
+    .union([JSONSchema4TypeNameSchema, JSONSchema4TypeNameSchema.array()])
+    .optional(),
   extends: z.union([z.string(), z.string().array()]).optional(),
   format: z.string().optional(),
-});
+})
 
 export type JSONSchema4 = z.infer<typeof JSONSchema4BaseSchema> & {
-  items?: JSONSchema4 | JSONSchema4[] | undefined;
-  additionalItems?: boolean | JSONSchema4 | undefined;
-  additionalProperties?: boolean | JSONSchema4 | undefined;
-  definitions?: {
-    [k: string]: JSONSchema4;
-  } | undefined;
-  properties?: {
-    [k: string]: JSONSchema4;
-  } | undefined;
-  patternProperties?: {
-    [k: string]: JSONSchema4;
-  } | undefined;
-  dependencies?: {
-    [k: string]: JSONSchema4 | string[];
-  } | undefined;
-  allOf?: JSONSchema4[] | undefined;
-  anyOf?: JSONSchema4[] | undefined;
-  oneOf?: JSONSchema4[] | undefined;
-  not?: JSONSchema4 | undefined;
+  items?: JSONSchema4 | JSONSchema4[] | undefined
+  additionalItems?: boolean | JSONSchema4 | undefined
+  additionalProperties?: boolean | JSONSchema4 | undefined
+  definitions?:
+    | {
+        [k: string]: JSONSchema4
+      }
+    | undefined
+  properties?:
+    | {
+        [k: string]: JSONSchema4
+      }
+    | undefined
+  patternProperties?:
+    | {
+        [k: string]: JSONSchema4
+      }
+    | undefined
+  dependencies?:
+    | {
+        [k: string]: JSONSchema4 | string[]
+      }
+    | undefined
+  allOf?: JSONSchema4[] | undefined
+  anyOf?: JSONSchema4[] | undefined
+  oneOf?: JSONSchema4[] | undefined
+  not?: JSONSchema4 | undefined
 }
 
 /**
  * @see https://zod.dev/?id=recursive-types
  */
-export const JSONSchema4Schema: z.ZodType<JSONSchema4> = JSONSchema4BaseSchema.extend({
-  items: z.lazy(() => z.union([JSONSchema4Schema, JSONSchema4Schema.array()]).optional()),
-  additionalItems: z.lazy(() => z.union([z.boolean(), JSONSchema4Schema]).optional()),
-  additionalProperties: z.lazy(() => z.union([z.boolean(), JSONSchema4Schema]).optional()),
-  definitions: z.lazy(() => z.record(z.string(), JSONSchema4Schema).optional()),
-  properties: z.lazy(() => z.record(z.string(), JSONSchema4Schema).optional()),
-  patternProperties: z.lazy(() => z.record(z.string(), JSONSchema4Schema).optional()),
-  dependencies: z.lazy(() => z.record(z.string(), z.union([JSONSchema4Schema, z.string().array()])).optional()),
-  allOf: z.lazy(() => JSONSchema4Schema.array().optional()),
-  anyOf: z.lazy(() => JSONSchema4Schema.array().optional()),
-  oneOf: z.lazy(() => JSONSchema4Schema.array().optional()),
-  not: z.lazy(() => JSONSchema4Schema.optional()),
-});
+export const JSONSchema4Schema: z.ZodType<JSONSchema4> =
+  JSONSchema4BaseSchema.extend({
+    items: z.lazy(() =>
+      z.union([JSONSchema4Schema, JSONSchema4Schema.array()]).optional()
+    ),
+    additionalItems: z.lazy(() =>
+      z.union([z.boolean(), JSONSchema4Schema]).optional()
+    ),
+    additionalProperties: z.lazy(() =>
+      z.union([z.boolean(), JSONSchema4Schema]).optional()
+    ),
+    definitions: z.lazy(() =>
+      z.record(z.string(), JSONSchema4Schema).optional()
+    ),
+    properties: z.lazy(() =>
+      z.record(z.string(), JSONSchema4Schema).optional()
+    ),
+    patternProperties: z.lazy(() =>
+      z.record(z.string(), JSONSchema4Schema).optional()
+    ),
+    dependencies: z.lazy(() =>
+      z
+        .record(z.string(), z.union([JSONSchema4Schema, z.string().array()]))
+        .optional()
+    ),
+    allOf: z.lazy(() => JSONSchema4Schema.array().optional()),
+    anyOf: z.lazy(() => JSONSchema4Schema.array().optional()),
+    oneOf: z.lazy(() => JSONSchema4Schema.array().optional()),
+    not: z.lazy(() => JSONSchema4Schema.optional()),
+  })

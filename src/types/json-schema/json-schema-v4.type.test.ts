@@ -1,5 +1,5 @@
-import assert from 'assert';
-import { JSONSchema4Schema } from './json-schema-v4.type';
+import assert from 'assert'
+import { JSONSchema4Schema } from './json-schema-v4.type'
 
 const sourceSchema = {
   $schema: 'http://json-schema.org/draft-04/schema#',
@@ -38,26 +38,26 @@ const sourceSchema = {
     },
   },
   propertyNames: 123,
-};
+}
 
 describe('JSON Schema V4', () => {
   it('parses a schema', () => {
-    assert.doesNotThrow(() => JSONSchema4Schema.parse(sourceSchema));
-  });
+    assert.doesNotThrow(() => JSONSchema4Schema.parse(sourceSchema))
+  })
 
   it('throws invalid_type', () => {
     assert.throws(
       () => JSONSchema4Schema.parse({ id: 123 }),
-      (err: any) => err?.name === 'ZodError' && err?.issues?.[0]?.code === 'invalid_type',
-    );
-  });
+      (err: any) =>
+        err?.name === 'ZodError' && err?.issues?.[0]?.code === 'invalid_type'
+    )
+  })
 
   it('throws an invalid_union', () => {
     assert.throws(
       () => JSONSchema4Schema.parse({ items: true }),
-      (err: any) => err?.name === 'ZodError' && err?.issues?.[0]?.code === 'invalid_union',
-    );
-  });
-});
-
-
+      (err: any) =>
+        err?.name === 'ZodError' && err?.issues?.[0]?.code === 'invalid_union'
+    )
+  })
+})

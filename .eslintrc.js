@@ -39,10 +39,9 @@ module.exports = {
         'import/no-unresolved': 'off',
         'mocha/no-mocha-arrows': 'off',
         'no-multiple-empty-lines': 'error',
-        quotes: ["error", "single"],
-        semi: ['error', 'always'],
+        quotes: ['error', 'single'],
         'space-before-function-paren': 'off',
-        'object-curly-spacing': ['warn', 'always']
+        'object-curly-spacing': ['warn', 'always'],
       },
       plugins: ['@typescript-eslint', 'mocha', 'eslint-plugin-clean-code'],
     },

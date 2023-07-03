@@ -1,5 +1,5 @@
-import {JSONSchema} from '../types/json-schema';
+import { JSONSchema } from '../types/json-schema'
 
 export function getRequiredProperties(schema: JSONSchema): string[] {
-   return Array.isArray(schema.required) ? schema.required : [];
+  return Array.isArray(schema.required) ? schema.required : []
 }

@@ -1,5 +1,5 @@
-import assert from 'assert';
-import { JSONSchema7Schema } from './json-schema-v7.type';
+import assert from 'assert'
+import { JSONSchema7Schema } from './json-schema-v7.type'
 
 const sourceSchema = {
   $schema: 'http://json-schema.org/draft-07/schema#',
@@ -34,26 +34,26 @@ const sourceSchema = {
       },
     },
   },
-};
+}
 
 describe('JSON Schema V7', () => {
   it('parses a schema', () => {
-    assert.doesNotThrow(() => JSONSchema7Schema.parse(sourceSchema));
-  });
+    assert.doesNotThrow(() => JSONSchema7Schema.parse(sourceSchema))
+  })
 
   it('throws invalid_type', () => {
     assert.throws(
       () => JSONSchema7Schema.parse({ id: 123 }),
-      (err: any) => err?.name === 'ZodError' && err?.issues?.[0]?.code === 'invalid_type',
-    );
-  });
+      (err: any) =>
+        err?.name === 'ZodError' && err?.issues?.[0]?.code === 'invalid_type'
+    )
+  })
 
   it('throws invalid_union', () => {
     assert.throws(
       () => JSONSchema7Schema.parse({ if: 123 }),
-      (err: any) => err?.name === 'ZodError' && err?.issues?.[0]?.code === 'invalid_union',
-    );
-  });
-});
-
-
+      (err: any) =>
+        err?.name === 'ZodError' && err?.issues?.[0]?.code === 'invalid_union'
+    )
+  })
+})
