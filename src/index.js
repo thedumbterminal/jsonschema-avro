@@ -47,7 +47,7 @@ jsonSchemaAvro._convertProperties = (jsonSchema, parentPathList, rootName) => {
       rootName || '',
       jsonSchema,
       parentPathList,
-      true
+      true,
     )
     return {
       ...type,
@@ -79,8 +79,8 @@ jsonSchemaAvro._convertProperties = (jsonSchema, parentPathList, rootName) => {
               propertyName,
               propertySchema,
               parentPathList,
-              isRequired
-            )
+              isRequired,
+            ),
           )
         } else if (jsonSchemaAvro._isArray(propertySchema)) {
           if (
@@ -92,8 +92,8 @@ jsonSchemaAvro._convertProperties = (jsonSchema, parentPathList, rootName) => {
                 propertyName,
                 propertySchema,
                 parentPathList,
-                isRequired
-              )
+                isRequired,
+              ),
             )
           }
         } else if (jsonSchemaAvro._hasEnum(propertySchema)) {
@@ -102,22 +102,22 @@ jsonSchemaAvro._convertProperties = (jsonSchema, parentPathList, rootName) => {
               propertyName,
               propertySchema,
               parentPathList,
-              isRequired
-            )
+              isRequired,
+            ),
           )
         } else {
           convertedProperties.push(
             jsonSchemaAvro._convertProperty(
               propertyName,
               propertySchema,
-              isRequired
-            )
+              isRequired,
+            ),
           )
         }
 
         return convertedProperties
       },
-      []
+      [],
     ),
   }
 }
@@ -126,7 +126,7 @@ jsonSchemaAvro._convertComplexProperty = (
   itemName,
   jsonSchema,
   parentPathList,
-  isRequired
+  isRequired,
 ) => {
   const pathList = parentPathList.concat(itemName)
   const avroSchema = {
@@ -143,7 +143,7 @@ jsonSchemaAvro._convertArrayProperty = (
   itemName,
   jsonSchema,
   parentPathList,
-  isRequired
+  isRequired,
 ) => {
   const pathList = parentPathList.concat(itemName)
   let items
@@ -158,13 +158,13 @@ jsonSchemaAvro._convertArrayProperty = (
       jsonSchema.items.name || itemName,
       jsonSchema.items,
       parentPathList,
-      true
+      true,
     ).type
   } else {
     items = jsonSchemaAvro._convertProperty(
       jsonSchema.items.name,
       jsonSchema.items,
-      true
+      true,
     )
   }
 
@@ -194,7 +194,7 @@ jsonSchemaAvro._convertEnumProperty = (
   itemName,
   jsonSchema,
   parentPathList,
-  isRequired
+  isRequired,
 ) => {
   const pathList = parentPathList.concat(itemName)
   const symbols = jsonSchema.enum.filter((symbol) => symbol !== null)
@@ -242,7 +242,7 @@ jsonSchemaAvro._mapType = (propName) => (jsonType) => {
 jsonSchemaAvro._setTypeAndDefault = (
   originalAvroSchema,
   jsonSchema,
-  isRequired
+  isRequired,
 ) => {
   const { type } = originalAvroSchema
   const avroSchema = { ...originalAvroSchema }
