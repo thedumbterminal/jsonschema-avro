@@ -77,46 +77,6 @@
           "required": ["name"]
         }
       }
-    },
-    "list_array_union_complex": {
-      "description": "example array of union of complex arrays",
-      "type": "array",
-      "items": {
-        "description": "an array",
-        "type": [
-          "string",
-          {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "age": {
-                  "type": "array",
-                  "items": {
-                    "type": ["string", "integer"]
-                  }
-                },
-                "gender": {
-                  "type": "array",
-                  "items": {
-                    "type": "string",
-                    "enum": ["Male", "Female"]
-                  }
-                }
-              },
-              "required": ["name"]
-            }
-          },
-          {
-            "description": "an enum",
-            "type": "string",
-            "enum": ["symbol_a", "symbol_b"]
-          }
-        ]
-      }
     }
   }
 }

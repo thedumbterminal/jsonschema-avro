@@ -166,23 +166,6 @@ jsonSchemaAvro._convertArrayProperty = (
       jsonSchema.items,
       true,
     )
-
-    if (Array.isArray(items.type)) {
-      items.type = items.type.map((type) => {
-        if (jsonSchemaAvro._isComplex(type) || jsonSchemaAvro._isArray(type)) {
-          return jsonSchemaAvro._convertProperties(type, pathList)
-        }
-        if (jsonSchemaAvro._hasEnum(type)) {
-          return jsonSchemaAvro._convertEnumProperty(
-            type.name || itemName,
-            type,
-            parentPathList,
-            true,
-          ).type
-        }
-        return type
-      })
-    }
   }
 
   const avroSchema = {
