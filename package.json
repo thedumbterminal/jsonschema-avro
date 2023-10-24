@@ -1,5 +1,5 @@
 {
-  "name": "jsonschema-avro",
+  "name": "@deepcrawl/jsonschema-avro",
   "version": "3.0.0",
   "description": "Convert JSON-schema into avro schema",
   "main": "dist/index.js",
@@ -14,12 +14,10 @@
     "test": "npm run test:unit && npm run test:integration",
     "format": "prettier --write .",
     "coverage": "nyc npm run test",
-    "coverage:html": "npm run coverage; open coverage/index.html"
+    "coverage:html": "npm run coverage; open coverage/index.html",
+    "prepublishOnly": "npm run build"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/thedumbterminal/jsonschema-avro.git"
-  },
+  "repository": "https://github.com/deepcrawl/jsonschema-avro.git",
   "keywords": [
     "json-schema",
     "jsonschema",
@@ -31,16 +29,13 @@
     "url": "http://www.thedumbterminal.co.uk"
   },
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/thedumbterminal/jsonschema-avro/issues"
-  },
   "licenses": [
     {
       "type": "MIT",
       "url": "https://github.com/thedumbterminal/jsonschema-avro/blob/master/LICENSE"
     }
   ],
-  "homepage": "https://github.com/thedumbterminal/jsonschema-avro#readme",
+  "homepage": "https://github.com/deepcrawl/jsonschema-avro#readme",
   "devDependencies": {
     "@types/mocha": "10.0.1",
     "@types/node": "20.2.4",
