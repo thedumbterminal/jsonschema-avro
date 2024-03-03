@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.1.1 (03/03/2024)
+
+- Removed support for incorrect invalid non string types. (frk-dc)
+
 ## v2.1.0 (13/05/2023)
 
 - Doc property removed from array types. (frk-dc)
