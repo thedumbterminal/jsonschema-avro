@@ -175,6 +175,7 @@ jsonSchemaAvro._convertArrayProperty = (
     },
   }
 
+  // eslint-disable-next-line no-unused-vars
   const { doc, ...rest } = items
   if (Object.keys(rest).length === 1 && rest.type !== undefined) {
     avroSchema.type.items = rest.type
