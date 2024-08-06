@@ -43,11 +43,10 @@
   "devDependencies": {
     "avsc": "^5.7.7",
     "eslint": "^8.9.0",
-    "eslint-config-standard": "^17.0.0",
-    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-mocha": "^10.1.0",
-    "eslint-plugin-n": "^16.0.1",
-    "eslint-plugin-promise": "^6.0.1",
+    "eslint-plugin-n": "^17.10.2",
+    "eslint-plugin-promise": "^7.0.0",
     "mocha": "^10.0.0",
     "nyc": "^15.1.0",
     "prettier": "^3.0.0"
